@@ -10,8 +10,8 @@ rangedistance=10 #The amount of intervals I have for distance
 maxdistance=40.#The maximum distance in kpc
 stepdistance=float(maxdistance)/rangedistance
 
-rangemass=10 #Amount of intervals I have for mass
-maxmass=10.
+rangemass=100 #Amount of intervals I have for mass
+maxmass=9.
 minmass=1.
 
 rangeage=10 #Amount of intervals I have for age
@@ -23,6 +23,12 @@ matrix=array.reshape((rangedistance,rangemass,rangeage))
 #First dimension: distance
 #Second dimension: mass
 #Third dimension: age
+
+distancelabel = np.array(range(rangedistance))
+masslabel = np.array(range(rangemass))
+masslabel = masslabel.astype(float)
+agelabel = np.array(range(rangeage))
+
 
 #This function is an excerpt from test.py. Since Z=0.02 in our case the formulas
 #get rather simple in comparison.
@@ -67,23 +73,12 @@ def Agerelation(age,mass):
         agefactor = 1
     return agefactor
 
-#This is just to check the Distance and Massrelation functions.
-"""maxvolume=0
-for distance in range(0,rangedistance):
-    volume=Distancerelation(distance)
-    print"volume= %g"%volume
-    maxvolume+=volume
-    
-for mass in range(0,rangemass):
-    massfactor=Massrelation(mass)
-"""
-
 for distance in range(1,rangedistance+1):
     for mass in range(0,rangemass):
         masss = (float(mass)/rangemass)*maxmass
         masss = (masss**8/maxmass**8)*maxmass +1
-        print"%g"%masss
-        #Irgendwie muss ich das logarithmisch kriegen...
+        masslabel[mass]= masss
+        #print"%g"%masss
         for age in range(1,rangeage+1):
             ages=float(age)/rangeage
             agefactor = Agerelation(ages,masss)

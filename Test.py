@@ -1,6 +1,7 @@
 import math
-import turtle
+import matplotlib.pyplot as plt
 import sys, pprint
+import numpy as np
 sys.displayhook = pprint.pprint
 #All those manual input routines are not needed anymore for this program.
 """M=raw_input("Greetings and welcome! My name is Richard and I am Andreas' first python program!\n\n\
@@ -101,12 +102,12 @@ M=float(M)
 Z=raw_input("Give me a metalicity")
 Z=float(Z)
 
+
 #Now that the fun stuff is out of the way, I start calculating.
 #First I calculate the coefficients a to subsequently calculate everything else.
 #This will be a whole lot of coefficients.
 
 def Lumiradius(M,Z):
-    sys.displayhook = pprint.pprint
     Squiggle= math.log10((Z/0.02))
     a45=0.23214+0.001828075*Squiggle-0.02232007*(Squiggle**2)-0.003378734*(Squiggle**3)
     a46=0.01163659+0.003427682*Squiggle+0.001421393*(Squiggle**2)-0.003710666*(Squiggle**3)
@@ -204,6 +205,7 @@ def Lumiradius(M,Z):
         bR=(a69*(M**3.5))/(a70+M**a71)
     elif(16<M):
         bR=B3+a73*(M-16.0)
+    bR=bR-1    
     #End of bR
     
     #Begin of c
@@ -337,22 +339,31 @@ def Lumiradius(M,Z):
 
     
     #This is now the actual calculation of L and R. 
-    logL=(aL*Age+bL*Age**eta+(math.log10(LTMS/LZAMS)-aL-bL)*Age**2-dL*(t1**2-t2**2))+math.log10(LZAMS)
+    logL=aL*Age+bL*Age**eta+(math.log10(LTMS/LZAMS)-aL-bL)*Age**2-dL*(t1**2-t2**2)+math.log10(LZAMS)
     logR=aR*Age+bR*Age**10+c*Age**40+(math.log10(RTMS/RZAMS)-aR-bR-c)*Age**3-dR*(t1**3-t2**3)+math.log10(RZAMS)
-
-    print"t=%g"%Age
-    print"L=%g"%logL
-    print"R=%g"%logR
-    print locals() #Used to check all variables in the loop.
+    
+    arrayR[Iteration]=logR
+    arrayL[Iteration]=logL
+    
+    #print"t=%g"%Age
+    #print"L=%g"%logL
+    #print"R=%g"%logR
+    #print locals() #Used to check all variables in the loop.
     #End of calculations!
     return 0
 
-Age=0.5
-Lumiradius(M,Z)
-while(Age<=1.0):
+
+arrayR=np.array(range(101))
+arrayR=arrayR.astype(float)
+arrayL=np.array(range(101))
+arrayL=arrayL.astype(float)
+Age=0
+Iteration=0
+while(Iteration<101):
     Lumiradius(M,Z)
-    Age+=0.1
-
-    #This part is for having the opportunity to use locals() as a command to show the values of ALL variables in the program
-    #So looking for mistakes is easier.
-
+    Age+=0.01
+    Iteration+=1
+plt.plot(arrayR)
+plt.xlabel('t/tms')
+plt.ylabel('log(R)')
+plt.show()
