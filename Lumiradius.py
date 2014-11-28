@@ -337,24 +337,29 @@ def Lumiradius(M,Z,Age):
     logR=aR*Age+bR*Age**10+c*Age**40+(math.log10(RTMS/RZAMS)-aR-bR-c)*Age**3-dR*(t1**3-t2**3)+math.log10(RZAMS)
 
     #Here to test the function
-    """arrayR[Iteration]=logR
-    arrayL[Iteration]=logL"""
-    
+    arrayR[Iteration]=logR
+    arrayL[Iteration]=logL
+    arrayT[Iteration]=Age
+    print"LTMS=%g"%LTMS
     #End of calculations!
     return (logL, logR)
 
 #Testing whether this function actually works
-"""arrayR=np.array(range(101))
+arrayR=np.array(range(101))
 arrayR=arrayR.astype(float)
 arrayL=np.array(range(101))
 arrayL=arrayL.astype(float)
+arrayT=np.array(range(101))
+arrayT=arrayT.astype(float)
 Age=0
 Iteration=0
+M=1.
+Z=0.02
 while(Iteration<101):
-    Lumiradius(M,Z)
+    Lumiradius(M,Z,Age)
     Age+=0.01
     Iteration+=1
-plt.plot(arrayR)
+plt.plot(arrayT, arrayR)
 plt.xlabel('t/tms')
 plt.ylabel('log(R)')
-plt.show()"""
+plt.show()

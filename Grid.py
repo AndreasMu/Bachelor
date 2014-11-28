@@ -7,7 +7,7 @@ Z=0.02
 numberfactor = 1.
 #The numberfactor is what I use to regulate the total number of stars
 
-rangedistance=10 #The amount of intervals I have for distance
+rangedistance=100 #The amount of intervals I have for distance
 maxdistance=40.#The maximum distance in kpc
 stepdistance=float(maxdistance)/rangedistance
 
@@ -109,3 +109,4 @@ for mass in range(0,rangemass):
         else:
             logL[mass,age]=0
             logR[mass,age]=0
+
