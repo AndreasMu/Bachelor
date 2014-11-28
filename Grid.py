@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import Lumiradius as LR
 
 Z=0.02
 #The metalicity should be 0.02
@@ -25,9 +26,11 @@ matrix=array.reshape((rangedistance,rangemass,rangeage))
 #Third dimension: age
 
 distancelabel = np.array(range(rangedistance))
+distancelabel = distancelabel.astype(float)
 masslabel = np.array(range(rangemass))
 masslabel = masslabel.astype(float)
 agelabel = np.array(range(rangeage))
+agelabel = agelabel.astype(float)
 
 
 #This function is an excerpt from test.py. Since Z=0.02 in our case the formulas
@@ -50,7 +53,7 @@ def Mainsequenceage(mass):
     tms=max(thook,k*tbgb)
     return tms
 
-maxage=Mainsequenceage(1.)
+maxage=Mainsequenceage(1)
 
 def Distancerelation(distance):
     volume=(distance**3-(distance-1)**3)*(4./3)*math.pi*stepdistance**3
@@ -67,29 +70,42 @@ def Massrelation(mass):
 def Agerelation(age,mass):
     tms=Mainsequenceage(mass)
     age=maxage*age
+    #print"tms=%g"%tms
+    #print"age=%g"%age
     if(age>tms):
         agefactor = 0
     else:
         agefactor = 1
     return agefactor
 
-for distance in range(1,rangedistance+1):
+for distance in range(0,rangedistance):
     for mass in range(0,rangemass):
-        masss = (float(mass)/rangemass)*maxmass
-        masss = (masss**8/maxmass**8)*maxmass +1
+        masss=10**((float(mass)*2)/rangemass) #This will make masss logarithmic
         masslabel[mass]= masss
         #print"%g"%masss
-        for age in range(1,rangeage+1):
-            ages=float(age)/rangeage
+        for age in range(0,rangeage):
+            ages=float(age)/(rangeage)
+            agelabel[age]=ages
             agefactor = Agerelation(ages,masss)
-            volume = Distancerelation(distance)
+            volume = Distancerelation(distance+1)
             massfactor = Massrelation(masss)
-            matrix[distance-1,mass,age-1]=volume*massfactor*agefactor*numberfactor
+            matrix[distance,mass,age]=volume*massfactor*agefactor*numberfactor
 
+#Here I make two matrices, which will contain Luminosity and Radius of stars of
+#a specific age and mass. In the later parts of this program I can then simply
+#use these matrices instead of always having to call the function from Lumiradius.py
+logK = np.array(range(rangemass*rangeage))
+logL = logK.reshape((rangemass,rangeage))
+logR = logK.reshape((rangemass,rangeage))
+logL=logL.astype(float)
+logR=logR.astype(float)
 
-
-
-
-
-
-            
+for mass in range(0,rangemass):
+    masss=10**((float(mass)*2)/rangemass)
+    for age in range(0,rangeage):
+        ages=float(age)/(rangeage)
+        if (matrix[rangedistance-1,mass,age]!=0):
+            logL[mass,age], logR[mass,age]=LR.Lumiradius(masss, Z, ages)
+        else:
+            logL[mass,age]=0
+            logR[mass,age]=0
