@@ -56,11 +56,17 @@ def Mainsequenceage(mass):
 maxage = Mainsequenceage(1)
 
 def Distancerelation(distance):
-    #volume = (distance**3-(distance-1)**3)*(4./3)*math.pi*stepdistance**3
-    volume = 4*math.pi*stepdistance**3*distance**3
+    distance+=1.
+    distancenorm=1/((4./3)*math.pi*maxdistance**3)
+    volume = distancenorm*(distance**3-(distance-1)**3)*(4./3)*math.pi*stepdistance**3
+    #volume = 4*math.pi*stepdistance**3*distance**3
     #The Volume of a spherical shell is 4/3*pi*(a^3-b^3) a>b. So this is the
     #volume of the nth shell.
     return volume
+
+for distance in range(0,rangedistance):
+    distancelabel[distance]=Distancerelation(distance)
+
 
 def Massrelation(mass):
     #integral IMF from minmass to infty =e*l**-1.35/1.35. norm to 1 => 
@@ -113,7 +119,7 @@ for mass in range(0,rangemass):
 
 matrix2=matrix
 
-Magnitude(logL,distance):
+def Magnitude(logL,distance):
     pass
 """
 for distance in range(0,rangedistance):
