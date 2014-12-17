@@ -94,7 +94,7 @@ for distance in range(0,rangedistance):
             ages = float(age)/(rangeage)
             agelabel[age] = ages
             agefactor = Agerelation(ages,masss)
-            volume = Distancerelation(distance+1)
+            volume = Distancerelation(distance)
             massfactor = Massrelation(masss)
             matrix[distance,mass,age] = volume*massfactor*agefactor*numberfactor
 
