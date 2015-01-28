@@ -18,6 +18,7 @@ minmass = 1.
 rangeage = 10 #Amount of intervals I have for age
 
 rangeall = rangedistance*rangemass*rangeage
+#Total amount of different possible stars.
 
 array = np.array(range(rangeall))
 matrix = array.reshape((rangedistance,rangemass,rangeage))
@@ -31,9 +32,10 @@ masslabel = np.array(range(rangemass))
 masslabel = masslabel.astype(float)
 agelabel = np.array(range(rangeage))
 agelabel = agelabel.astype(float)
+volumelabel = distancelabel
+#Changing every array from an int array to a float array.
 
-
-#This function is an excerpt from test.py. Since Z=0.02 in our case the formulas
+#This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
 #get rather simple in comparison.
 def Mainsequenceage(mass):
     a1 = 1593.89
@@ -53,32 +55,35 @@ def Mainsequenceage(mass):
     tms = max(thook,k*tbgb)
     return tms
 
-maxage = Mainsequenceage(1)
+maxage = Mainsequenceage(minmass)
 
-def Distancerelation(distance):
+def Volume(distance):
     distance+=1.
-    distancenorm=1/((4./3)*math.pi*maxdistance**3)
-    volume = distancenorm*(distance**3-(distance-1)**3)*(4./3)*math.pi*stepdistance**3
+    volumenorm=1/((4./3)*math.pi*maxdistance**3)
+    volume = volumenorm*(distance**3-(distance-1)**3)*(4./3)*math.pi*stepdistance**3
     #volume = 4*math.pi*stepdistance**3*distance**3
     #The Volume of a spherical shell is 4/3*pi*(a^3-b^3) a>b. So this is the
     #volume of the nth shell.
     return volume
 
 for distance in range(0,rangedistance):
-    distancelabel[distance]=Distancerelation(distance)
+    volumelabel[distance]=Volume(distance)
+    #The volumelabel will save the fractional volume of each shell.
 
-
-def Massrelation(mass):
-    #integral IMF from minmass to infty =e*l**-1.35/1.35. norm to 1 => 
-    e = 1.35*minmass**1.35
+def IMF(mass):
+    #The IMF is: IMF=e*mass**{-2.3} To get e i calculate the integral IMF from minmass to 100.
+    #1==int_{minmass}^{100}(e*m^{-2.3}}=\frac{-1}{1.3}*e*100^{-1.3} + \frac{1}{1.3}*e*minmass^{-1.3}
+    #because minmass^{-1.3}>>100^{-1.3} I neglect the first term. Solving for e gives:
+    e= 1.35*minmass**1.35
     massfactor = e*mass**(-2.35)
     return massfactor
 
+
 def Agerelation(age,mass):
+    #This functions purpose is to make sure I don't include stars, that are already dead.
+    #If the age of the star is greater, than its mainsequence age, the function will return 0.
     tms = Mainsequenceage(mass)
     age = maxage*age
-    #print"tms=%g"%tms
-    #print"age=%g"%age
     if(age>tms):
         agefactor = 0
     else:
@@ -94,8 +99,8 @@ for distance in range(0,rangedistance):
             ages = float(age)/(rangeage)
             agelabel[age] = ages
             agefactor = Agerelation(ages,masss)
-            volume = Distancerelation(distance)
-            massfactor = Massrelation(masss)
+            volume = Volume(distance)
+            massfactor = IMF(masss)
             matrix[distance,mass,age] = volume*massfactor*agefactor*numberfactor
 
 #Here I make two matrices, which will contain Luminosity and Radius of stars of
