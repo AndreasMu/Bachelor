@@ -202,3 +202,4 @@ with file('magnitude2.txt', 'w') as outfile:
 
 np.savetxt('logL.txt',logL)
 np.savetxt('logR.txt',logR)
+np.savetxt('masslabel.txt',masslabel)
