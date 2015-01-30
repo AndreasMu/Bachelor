@@ -181,4 +181,24 @@ for distance in range(0,rangedistance):
                 magnitude[distance,mass,age]=Magnitude(logL[mass,age],logR[mass,age],distances)
             else:
                 magnitude[distance,mass,age]=0
+
                 
+with file('magnitude2.txt', 'w') as outfile:
+    # I'm writing a header here just for the sake of readability
+    # Any line starting with "#" will be ignored by numpy.loadtxt
+    outfile.write('# Array shape: {0}\n'.format(magnitude.shape))
+
+    # Iterating through a ndimensional array produces slices along
+    # the last axis. This is equivalent to data[i,:,:] in this case
+    for magnitude_slice in magnitude:
+
+        # The formatting string indicates that I'm writing out
+        # the values in left-justified columns 7 characters in width
+        # with 2 decimal places.  
+        np.savetxt(outfile, magnitude_slice, fmt='%-7.2f')
+
+        # Writing out a break to indicate different slices...
+        outfile.write('# New slice\n')
+
+np.savetxt('logL.txt',logL)
+np.savetxt('logR.txt',logR)
