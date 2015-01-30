@@ -38,6 +38,7 @@ volumelabel = distancelabel
 
 #This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
 #get rather simple in comparison.
+#tms is in units of Myr
 def Mainsequenceage(mass):
     a1 = 1593.89
     a2 = 2706.708

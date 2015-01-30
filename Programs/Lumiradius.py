@@ -278,12 +278,12 @@ def Lumiradius(M,Z,Age):
     a43=0.063+0.0481*Squiggle+0.00984*(Squiggle**2)
     a44=min(1.3,max(0.45,1.2+2.45*Squiggle))
     
-    #Calculation of a few different tier 1 coefficients.
-    LZAMS=(0.3970417*M**5.5+8.527626*M**11)/(0.00025546+M**3+5.432889*M**5+5.563579*M**7+0.7886606*M**8+0.00586685*M**9.5)
+    #Calculation of a few different tier 1 coefficients.#LZAMS M**3 TERM DIFFERENT FROM PAPER!
+    LZAMS=(0.3970417*M**5.5+8.527626*M**11)/(0.00025546*M**3+5.432889*M**5+5.563579*M**7+0.7886606*M**8+0.00586685*M**9.5)
     RZAMS=(1.715359*M**2.5+6.597788*M**6.5+10.08855*M**11+1.012495*M**19+0.07490166*M**19.5)/(0.01077422+3.082234*M**2+17.84778*M**8.5+M**18.5+0.00022582*M**19.5)
-    
+        
     dA=min(a34/(a33**a35),a36/(a33**a37)) #Tier 2
-    if(M<Mh):
+    if(M<=Mh):
         dL=0.0
     elif(Mh<M<a33):
         dL=dA*(((M-Mh)/(a33-Mh))**0.4)

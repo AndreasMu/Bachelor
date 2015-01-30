@@ -1,0 +1,39 @@
+This file contains parameters that control a normal run See the I/O manual
+for the meaning of some of these variables you can set
+
+&INIT_RUN
+ ISB     =           1,  KTW     =           1
+
+ IP1     =          16  IM1     =           1
+ 
+ IP2     =          16  IM2     =           1
+ 
+ KPT     =        9000,  KP      =         200
+ 
+ ML1     =  0.200000008585137  DML     =  0.2  KML     =  1
+ QL1     =  0.200000001430856  DQL     =  5.00E-02,  KQL     =  1
+ XL1     =  10  DXL     =  0.1  KXL     =  1
+
+ ROT     =  1.0,          KR      =  1
+ EX      =  0.0
+
+ SM      =  1.584893223791296e+00
+ DTY     = -1.0
+ AGE     =  0.0
+ PER     = 1e+99
+ BMS     = 2001.58489322379
+ ECC     =  0.0
+ P       = -1.0
+ ENC     =  0.0
+ JMX     =  1
+
+ UC      =    
+  1.00E-01, 2.00E+12, 1.00E+02, 0.00E+00, 3.00E+00, 5.30E+00, 1.20E+00,
+  6.30E+00, 3.00E+02, 0.00E+00, 1.00E-06, 1.00E+03, 1.00E+03, 1.00E+03,
+  0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00, 0.00E+00
+/
+
+Conditions for termination (UC):
+    rlf1     age      LCarb     rlf2      LHe        rho      MCO 
+    rho      mdot     XHe       He-eps    dtmin      sm8      vmh8
+    XH       rest     not       yet       used       ...      ...

@@ -1,0 +1,27 @@
+TWIN/STARS (svn r1671)
+
+The code was started on: 2015-01-30 13:42:21 UT20150
+By: s6asmuel@
+Directory: /gpfs/share/home/s6asmuel/Documents/Bachelorarbeit/WTTS
+
+evpath: /vol/software/software/astro/wtts/TWIN/latest-64bit
+
+install_path: /usr/local/stars
+
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/zahb02.mod for unit  12
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/zahb.dat for unit  24
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/zams/zams02.mod for unit  16
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/zams/zams02.mas for unit  19
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/metals/z02/phys.z02 for unit  20
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/lt2ubv.dat for unit  21
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/nucdata.dat for unit  26
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/mutate.dat for unit  63
+Using file window_to_the_stars.dat for unit  22
+Using file window_to_the_stars.run for unit  23
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/COtables/COtables_z02 for unit  41
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/physinfo.dat for unit  42
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/rates.dat for unit  43
+Using file /vol/software/software/astro/wtts/TWIN/latest-64bit/input/nrates.dat for unit  44
+
+                file        M1i        M2i         qi         Pi
+ window_to_the_stars  1.585E+00  2.000E+03  7.924E-04  1.000E+10
