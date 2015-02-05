@@ -162,13 +162,13 @@ def Magnitude(logL,logR,distance):
     #I know: MV=V-5*log10(distance)+5-Reddening
     #Mbol=MV+BC
     #L/L_\odot=0.4*(4.72-Mbol)
-    #Therefore: V=5*log10(distance)-5+Reddening+\frac{4.72*0.4-L}{0.4}-BC
+    #Therefore: V=5*log10(distance)-5+Reddening+4.72-\frac[L}{0.4}-BC
     red=Reddening(distance)
     T=Temperature(logL,logR)
     bc=BC(T)
     if distance==0:
         distance=0.01*maxdistance/rangedistance
-    V=5*math.log10(distance)-5+red+(4.72-logL/0.4)-bc
+    V=5*math.log10(1000*distance)-5+red+4.72-logL/0.4-bc
     return V
     
 for distance in range(0,rangedistance):
@@ -183,7 +183,7 @@ for distance in range(0,rangedistance):
                 magnitude[distance,mass,age]=0
 
                 
-with file('magnitude2.txt', 'w') as outfile:
+"""with file('magnitude2.txt', 'w') as outfile:
     # I'm writing a header here just for the sake of readability
     # Any line starting with "#" will be ignored by numpy.loadtxt
     outfile.write('# Array shape: {0}\n'.format(magnitude.shape))
@@ -203,3 +203,4 @@ with file('magnitude2.txt', 'w') as outfile:
 np.savetxt('logL.txt',logL)
 np.savetxt('logR.txt',logR)
 np.savetxt('masslabel.txt',masslabel)
+"""
