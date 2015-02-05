@@ -2,21 +2,22 @@ import numpy as np
 import math
 from scipy.constants import sigma
 import Lumiradius as LR
+import matplotlib.pyplot as plt
 
 Z = 0.02
 #The metalicity should be 0.02
 numberfactor = 100000.
 #The numberfactor is what I use to regulate the total number of stars
 
-rangedistance = 10 #The amount of intervals I have for distance
+rangedistance = 100 #The amount of intervals I have for distance
 maxdistance = 5.#The maximum distance in kpc
 stepdistance = float(maxdistance)/rangedistance
 
-rangemass = 10 #Amount of intervals I have for mass
-maxmass = 9.
-minmass = 1.
+rangemass = 100 #Amount of intervals I have for mass
+maxmass = 50.
+minmass = 5.
 
-rangeage = 10 #Amount of intervals I have for age
+rangeage = 100 #Amount of intervals I have for age
 
 rangeall = rangedistance*rangemass*rangeage
 #Total amount of different possible stars.
@@ -99,7 +100,6 @@ for distance in range(0,rangedistance):
         #print"%g"%masss
         for age in range(0,rangeage):
             ages = float(age)/(rangeage)
-            agelabel[age] = ages
             agefactor = Agerelation(masss,ages)
             volume = Volume(distance)
             massfactor = IMF(masss)
@@ -117,9 +117,10 @@ logR = logR.astype(float)
 for mass in range(0,rangemass):
     masss = 10**((float(mass)*2)/rangemass)
     for age in range(0,rangeage):
-        ages = float(age)/(rangeage)
+        #ages = float(age)/(rangeage)
+        fracage = float(age)*maxage/(rangeage*Mainsequenceage(masss))
         if (matrix[rangedistance-1,mass,age]!=0):
-            logL[mass,age], logR[mass,age]= LR.Lumiradius(masss, Z, ages)
+            logL[mass,age], logR[mass,age]= LR.Lumiradius(masss, Z, fracage)
         else:
             logL[mass,age] = 0
             logR[mass,age] = 0
@@ -167,10 +168,10 @@ def Magnitude(logL,logR,distance):
     T=Temperature(logL,logR)
     bc=BC(T)
     if distance==0:
-        distance=0.01*maxdistance/rangedistance
+        return 10
     V=5*math.log10(1000*distance)-5+red+4.72-logL/0.4-bc
     return V
-    
+
 for distance in range(0,rangedistance):
     distances = distance*maxdistance/rangedistance
     for mass in range(0,rangemass):
@@ -180,10 +181,27 @@ for distance in range(0,rangedistance):
             if (Agerelation(masss,ages)!=0):
                 magnitude[distance,mass,age]=Magnitude(logL[mass,age],logR[mass,age],distances)
             else:
-                magnitude[distance,mass,age]=0
-
+                magnitude[distance,mass,age]=10
                 
-"""with file('magnitude2.txt', 'w') as outfile:
+
+graph=np.zeros(rangeage)
+for distance in range(0,rangedistance):
+    for mass in range(0,rangemass):
+        masss = 10**((float(mass)*2)/rangemass)
+        for age in range(0,rangeage):
+            ages = float(age)/(rangeage)
+            fracage = float(age)*maxage/(rangeage*Mainsequenceage(masss))
+            if magnitude[distance,mass,age]< 9. and Agerelation(masss, ages)==1:
+                graphage=int(fracage*rangeage)
+                graph[graphage]+=1
+
+plt.plot(agelabel, graph)
+plt.xlabel('t/tms')
+plt.ylabel('#stars V<9')
+plt.show()          
+
+"""
+with file('magnitude2.txt', 'w') as outfile:
     # I'm writing a header here just for the sake of readability
     # Any line starting with "#" will be ignored by numpy.loadtxt
     outfile.write('# Array shape: {0}\n'.format(magnitude.shape))
