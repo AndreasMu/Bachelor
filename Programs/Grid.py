@@ -82,25 +82,48 @@ def IMF(mass):
     return massfactor
 
 
-def Agerelation(mass,age):
+def Agerelation(mass,realage):
     #This functions purpose is to make sure I don't include stars, that are already dead.
     #If the age of the star is greater, than its mainsequence age, the function will return 0.
     tms = Mainsequenceage(mass)
-    age = maxage*age
-    if(age>tms):
+    if(realage>tms):
         agefactor = 0
     else:
         agefactor = 1
     return agefactor
 
+agerelation = np.zeros(rangemass*rangeage)
+agerelation = agerelation.reshape((rangemass,rangeage))
+realages = np.zeros(rangeage)
+
+#Here the agerelation matrix is filled so I can easily check, whether a star of
+#mass x age y actually exists
+for mass in range(0,rangemass):
+    masss = 5*10**((float(mass))/rangemass)
+    for age in range(0,rangeage):
+        realage = float(age)*maxage/(rangeage)
+        if mass==rangemass-1:
+            realages[age]=realage
+        agerelation[mass,age]=Agerelation(masss,realage)
+
+agerange = np.zeros(rangemass)
+
+#This will tell me how many entries there are in the agerelation matrix
+for mass in range(0,rangemass):
+    agerangee=0
+    for age in range(0,rangeage):
+        agerangee+=1
+        if agerelation[mass,age]==0:
+            agerange[mass]=agerangee
+            break
+
 for distance in range(0,rangedistance):
     for mass in range(0,rangemass):
-        masss = 10**((float(mass)*2)/rangemass) #This will make masss logarithmic
+        masss = 5*10**((float(mass))/rangemass) #This will make masss logarithmic
         masslabel[mass] = masss
         #print"%g"%masss
         for age in range(0,rangeage):
-            ages = float(age)/(rangeage)
-            agefactor = Agerelation(masss,ages)
+            agefactor = agerelation[mass,age]
             volume = Volume(distance)
             massfactor = IMF(masss)
             matrix[distance,mass,age] = volume * massfactor * agefactor * numberfactor
@@ -114,12 +137,12 @@ logR = logK.reshape((rangemass,rangeage))
 logL = logL.astype(float)
 logR = logR.astype(float)
 
+
 for mass in range(0,rangemass):
-    masss = 10**((float(mass)*2)/rangemass)
+    masss = 5*10**((float(mass))/rangemass)
     for age in range(0,rangeage):
-        #ages = float(age)/(rangeage)
         fracage = float(age)*maxage/(rangeage*Mainsequenceage(masss))
-        if (matrix[rangedistance-1,mass,age]!=0):
+        if (agerelation[mass,age]==1):
             logL[mass,age], logR[mass,age]= LR.Lumiradius(masss, Z, fracage)
         else:
             logL[mass,age] = 0
@@ -175,25 +198,26 @@ def Magnitude(logL,logR,distance):
 for distance in range(0,rangedistance):
     distances = distance*maxdistance/rangedistance
     for mass in range(0,rangemass):
-        masss = 10**((float(mass)*2)/rangemass)
+        masss = 5*10**((float(mass))/rangemass)
         for age in range(0,rangeage):
-            ages = float(age)/(rangeage)
-            if (Agerelation(masss,ages)!=0):
+            if (agerelation[mass,age]==1):
                 magnitude[distance,mass,age]=Magnitude(logL[mass,age],logR[mass,age],distances)
             else:
-                magnitude[distance,mass,age]=10
+                magnitude[distance,mass,age]=100
                 
 
 graph=np.zeros(rangeage)
 for distance in range(0,rangedistance):
     for mass in range(0,rangemass):
-        masss = 10**((float(mass)*2)/rangemass)
+        masss = 5*10**((float(mass))/rangemass)
         for age in range(0,rangeage):
-            ages = float(age)/(rangeage)
             fracage = float(age)*maxage/(rangeage*Mainsequenceage(masss))
-            if magnitude[distance,mass,age]< 9. and Agerelation(masss, ages)==1:
+            if magnitude[distance,mass,age]< 9. and agerelation[mass, age]==1:
                 graphage=int(fracage*rangeage)
                 graph[graphage]+=1
+
+for age in range(0,rangeage):
+    agelabel[age]= float(age)/rangeage
 
 plt.plot(agelabel, graph)
 plt.xlabel('t/tms')
