@@ -93,6 +93,7 @@ def Agerelation(mass,realage):
     return agefactor
 
 agerelation = np.zeros(rangemass*rangeage)
+agerelation = agerelation.astype(int)
 agerelation = agerelation.reshape((rangemass,rangeage))
 realages = np.zeros(rangeage)
 
@@ -107,16 +108,20 @@ for mass in range(0,rangemass):
         agerelation[mass,age]=Agerelation(masss,realage)
 
 agerange = np.zeros(rangemass)
-
-#This will tell me how many entries there are in the agerelation matrix
+agerange = agerange.astype(int)
+agerangee=0
+#This will tell me how many entries there are in the agerelation matrix so
+#essentially how many stars I can simulate of a given mass.
 for mass in range(0,rangemass):
     agerangee=0
     for age in range(0,rangeage):
         agerangee+=1
         if agerelation[mass,age]==0:
-            agerange[mass]=agerangee
+            agerange[mass]=agerangee-1
             break
-
+        if age==rangeage-1:
+            agerange[mass]=agerangee
+        
 for distance in range(0,rangedistance):
     for mass in range(0,rangemass):
         masss = 5*10**((float(mass))/rangemass) #This will make masss logarithmic
@@ -216,6 +221,7 @@ for distance in range(0,rangedistance):
                 graphage=int(fracage*rangeage)
                 graph[graphage]+=1
 
+graph[0]=0
 for age in range(0,rangeage):
     agelabel[age]= float(age)/rangeage
 
@@ -223,8 +229,7 @@ plt.plot(agelabel, graph)
 plt.xlabel('t/tms')
 plt.ylabel('#stars V<9')
 plt.show()          
-
-"""
+'''
 with file('magnitude2.txt', 'w') as outfile:
     # I'm writing a header here just for the sake of readability
     # Any line starting with "#" will be ignored by numpy.loadtxt
@@ -245,4 +250,5 @@ with file('magnitude2.txt', 'w') as outfile:
 np.savetxt('logL.txt',logL)
 np.savetxt('logR.txt',logR)
 np.savetxt('masslabel.txt',masslabel)
-"""
+'''
+np.savetxt('agerange.txt', np.c_[masslabel,agerange],fmt='%1.2f')
