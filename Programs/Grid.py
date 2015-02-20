@@ -9,15 +9,15 @@ Z = 0.02
 numberfactor = 100000.
 #The numberfactor is what I use to regulate the total number of stars
 
-rangedistance = 100 #The amount of intervals I have for distance
+rangedistance = 750 #The amount of intervals I have for distance
 maxdistance = 5.#The maximum distance in kpc
 stepdistance = float(maxdistance)/rangedistance
 
-rangemass = 100 #Amount of intervals I have for mass
+rangemass = 750 #Amount of intervals I have for mass
 maxmass = 50.
 minmass = 5.
 
-rangeage = 100 #Amount of intervals I have for age
+rangeage = 750 #Amount of intervals I have for age
 
 rangeall = rangedistance*rangemass*rangeage
 #Total amount of different possible stars.
@@ -250,5 +250,6 @@ with file('magnitude2.txt', 'w') as outfile:
 np.savetxt('logL.txt',logL)
 np.savetxt('logR.txt',logR)
 np.savetxt('masslabel.txt',masslabel)
-'''
+
 np.savetxt('agerange.txt', np.c_[masslabel,agerange],fmt='%1.2f')
+'''
