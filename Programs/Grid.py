@@ -9,33 +9,16 @@ Z = 0.02
 numberfactor = 100000.
 #The numberfactor is what I use to regulate the total number of stars
 
-rangedistance = 750 #The amount of intervals I have for distance
+rangedistance = 100 #The amount of intervals I have for distance
 maxdistance = 5.#The maximum distance in kpc
 stepdistance = float(maxdistance)/rangedistance
 
-rangemass = 750 #Amount of intervals I have for mass
+rangemass = 100 #Amount of intervals I have for mass
 maxmass = 50.
 minmass = 5.
 
-rangeage = 750 #Amount of intervals I have for age
+rangeage = 100 #Amount of intervals I have for age
 
-rangeall = rangedistance*rangemass*rangeage
-#Total amount of different possible stars.
-
-array = np.array(range(rangeall))
-matrix = array.reshape((rangedistance,rangemass,rangeage))
-#First dimension: distance
-#Second dimension: mass
-#Third dimension: age
-
-distancelabel = np.array(range(rangedistance))
-distancelabel = distancelabel.astype(float)
-masslabel = np.array(range(rangemass))
-masslabel = masslabel.astype(float)
-agelabel = np.array(range(rangeage))
-agelabel = agelabel.astype(float)
-volumelabel = distancelabel
-#Changing every array from an int array to a float array.
 
 #This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
 #get rather simple in comparison.
@@ -69,16 +52,15 @@ def Volume(distance):
     #volume of the nth shell.
     return volume
 
+"""volumelabel = np.array(range(rangedistance))
+volumelabel = volumelabel.astype(float)
 for distance in range(0,rangedistance):
     volumelabel[distance]=Volume(distance)
-    #The volumelabel will save the fractional volume of each shell.
+    #The volumelabel will save the fractional volume of each shell."""
 
 def IMF(mass):
-    #The IMF is: IMF=e*mass**{-2.3} To get e i calculate the integral IMF from minmass to 100.
-    #1==int_{minmass}^{100}(e*m^{-2.3}}=\frac{-1}{1.3}*e*100^{-1.3} + \frac{1}{1.3}*e*minmass^{-1.3}
-    #because minmass^{-1.3}>>100^{-1.3} I neglect the first term. Solving for e gives:
-    e= 1.35*minmass**1.35
-    massfactor = e*mass**(-2.35)
+    e= 1/(1.3) * (1/(minmass**-1.3-maxmass**-1.3))
+    massfactor =  math.log(10)*e*mass**(-1.35)
     return massfactor
 
 
@@ -92,26 +74,22 @@ def Agerelation(mass,realage):
         agefactor = 1
     return agefactor
 
+#Here an agerelation matrix is filled so I can easily check, whether a star of
+#mass x age y actually exists. 
 agerelation = np.zeros(rangemass*rangeage)
 agerelation = agerelation.astype(int)
 agerelation = agerelation.reshape((rangemass,rangeage))
-realages = np.zeros(rangeage)
-
-#Here the agerelation matrix is filled so I can easily check, whether a star of
-#mass x age y actually exists
 for mass in range(0,rangemass):
     masss = 5*10**((float(mass))/rangemass)
     for age in range(0,rangeage):
         realage = float(age)*maxage/(rangeage)
-        if mass==rangemass-1:
-            realages[age]=realage
         agerelation[mass,age]=Agerelation(masss,realage)
 
+#This will tell me how many entries there are in the agerelation matrix so
+#essentially how many stars I can simulate of a given mass.
 agerange = np.zeros(rangemass)
 agerange = agerange.astype(int)
 agerangee=0
-#This will tell me how many entries there are in the agerelation matrix so
-#essentially how many stars I can simulate of a given mass.
 for mass in range(0,rangemass):
     agerangee=0
     for age in range(0,rangeage):
@@ -121,17 +99,7 @@ for mass in range(0,rangemass):
             break
         if age==rangeage-1:
             agerange[mass]=agerangee
-        
-for distance in range(0,rangedistance):
-    for mass in range(0,rangemass):
-        masss = 5*10**((float(mass))/rangemass) #This will make masss logarithmic
-        masslabel[mass] = masss
-        #print"%g"%masss
-        for age in range(0,rangeage):
-            agefactor = agerelation[mass,age]
-            volume = Volume(distance)
-            massfactor = IMF(masss)
-            matrix[distance,mass,age] = volume * massfactor * agefactor * numberfactor
+
 
 #Here I make two matrices, which will contain Luminosity and Radius of stars of
 #a specific age and mass. In the later parts of this program I can then simply
@@ -141,8 +109,6 @@ logL = logK.reshape((rangemass,rangeage))
 logR = logK.reshape((rangemass,rangeage))
 logL = logL.astype(float)
 logR = logR.astype(float)
-
-
 for mass in range(0,rangemass):
     masss = 5*10**((float(mass))/rangemass)
     for age in range(0,rangeage):
@@ -153,10 +119,6 @@ for mass in range(0,rangemass):
             logL[mass,age] = 0
             logR[mass,age] = 0
 
-
-magarray = np.array(range(rangeall))
-magnitude = magarray.reshape((rangedistance,rangemass,rangeage))
-magnitude = magnitude.astype(float)
 
 #This is the start of calculating the visual magnitude of the star.
 def Temperature(logL,logR):
@@ -200,7 +162,23 @@ def Magnitude(logL,logR,distance):
     V=5*math.log10(1000*distance)-5+red+4.72-logL/0.4-bc
     return V
 
+graph=np.zeros(rangeage)
+masslabel = np.array(range(rangemass))
+masslabel = masslabel.astype(float)    
 for distance in range(0,rangedistance):
+    realdistance=distance*maxdistance/rangedistance
+    for mass in range(0,rangemass):
+        masss = 5*10**((float(mass))/rangemass) #This will make masss logarithmic
+        masslabel[mass] = masss
+        mainsequenceage=Mainsequenceage(masss)
+        for age in range(0,rangeage):
+            fracage = float(age)*maxage/(rangeage*mainsequenceage)
+            if Magnitude(logL[mass,age],logR[mass,age],realdistance)<9 and agerelation[mass,age]==1:
+                graphage=int(fracage*rangeage)
+                graph[graphage]+=Volume(distance)*agerelation[mass,age]*IMF(masss)*numberfactor
+              
+
+"""for distance in range(0,rangedistance):
     distances = distance*maxdistance/rangedistance
     for mass in range(0,rangemass):
         masss = 5*10**((float(mass))/rangemass)
@@ -208,20 +186,10 @@ for distance in range(0,rangedistance):
             if (agerelation[mass,age]==1):
                 magnitude[distance,mass,age]=Magnitude(logL[mass,age],logR[mass,age],distances)
             else:
-                magnitude[distance,mass,age]=100
-                
+                magnitude[distance,mass,age]=100"""
 
-graph=np.zeros(rangeage)
-for distance in range(0,rangedistance):
-    for mass in range(0,rangemass):
-        masss = 5*10**((float(mass))/rangemass)
-        for age in range(0,rangeage):
-            fracage = float(age)*maxage/(rangeage*Mainsequenceage(masss))
-            if magnitude[distance,mass,age]< 9. and agerelation[mass, age]==1:
-                graphage=int(fracage*rangeage)
-                graph[graphage]+=1
-
-graph[0]=0
+agelabel = np.array(range(rangeage))
+agelabel = agelabel.astype(float)
 for age in range(0,rangeage):
     agelabel[age]= float(age)/rangeage
 
