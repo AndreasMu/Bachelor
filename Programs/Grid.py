@@ -9,15 +9,15 @@ Z = 0.02
 numberfactor = 100000.
 #The numberfactor is what I use to regulate the total number of stars
 
-rangedistance = 100 #The amount of intervals I have for distance
+rangedistance = 1250 #The amount of intervals I have for distance
 maxdistance = 5.#The maximum distance in kpc
 stepdistance = float(maxdistance)/rangedistance
 
-rangemass = 100 #Amount of intervals I have for mass
+rangemass = 1250 #Amount of intervals I have for mass
 maxmass = 50.
 minmass = 5.
 
-rangeage = 100 #Amount of intervals I have for age
+rangeage = 1250 #Amount of intervals I have for age
 
 
 #This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
@@ -59,10 +59,9 @@ for distance in range(0,rangedistance):
     #The volumelabel will save the fractional volume of each shell."""
 
 def IMF(mass):
-    e= 1/(1.3) * (1/(minmass**-1.3-maxmass**-1.3))
+    e= 1.35 * (1/(minmass**-1.35-maxmass**-1.35))
     massfactor =  math.log(10)*e*mass**(-1.35)
-    return massfactor
-
+    return (massfactor/rangemass)
 
 def Agerelation(mass,realage):
     #This functions purpose is to make sure I don't include stars, that are already dead.
@@ -176,17 +175,6 @@ for distance in range(0,rangedistance):
             if Magnitude(logL[mass,age],logR[mass,age],realdistance)<9 and agerelation[mass,age]==1:
                 graphage=int(fracage*rangeage)
                 graph[graphage]+=Volume(distance)*agerelation[mass,age]*IMF(masss)*numberfactor
-              
-
-"""for distance in range(0,rangedistance):
-    distances = distance*maxdistance/rangedistance
-    for mass in range(0,rangemass):
-        masss = 5*10**((float(mass))/rangemass)
-        for age in range(0,rangeage):
-            if (agerelation[mass,age]==1):
-                magnitude[distance,mass,age]=Magnitude(logL[mass,age],logR[mass,age],distances)
-            else:
-                magnitude[distance,mass,age]=100"""
 
 agelabel = np.array(range(rangeage))
 agelabel = agelabel.astype(float)
@@ -197,27 +185,3 @@ plt.plot(agelabel, graph)
 plt.xlabel('t/tms')
 plt.ylabel('#stars V<9')
 plt.show()          
-'''
-with file('magnitude2.txt', 'w') as outfile:
-    # I'm writing a header here just for the sake of readability
-    # Any line starting with "#" will be ignored by numpy.loadtxt
-    outfile.write('# Array shape: {0}\n'.format(magnitude.shape))
-
-    # Iterating through a ndimensional array produces slices along
-    # the last axis. This is equivalent to data[i,:,:] in this case
-    for magnitude_slice in magnitude:
-
-        # The formatting string indicates that I'm writing out
-        # the values in left-justified columns 7 characters in width
-        # with 2 decimal places.  
-        np.savetxt(outfile, magnitude_slice, fmt='%-7.2f')
-
-        # Writing out a break to indicate different slices...
-        outfile.write('# New slice\n')
-
-np.savetxt('logL.txt',logL)
-np.savetxt('logR.txt',logR)
-np.savetxt('masslabel.txt',masslabel)
-
-np.savetxt('agerange.txt', np.c_[masslabel,agerange],fmt='%1.2f')
-'''

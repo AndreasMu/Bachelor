@@ -13,9 +13,9 @@ massintegral = np.array(range(rangemass))
 massintegral = massintegral.astype(float)
 
 def IMF(mass):
-    e= 1/(1.3) * (1/(minmass**-1.3-maxmass**-1.3))
+    e= 1.35 * (1/(minmass**-1.35-maxmass**-1.35))
     massfactor =  math.log(10)*e*mass**(-1.35)
-    return massfactor
+    return (massfactor/rangemass)
 
 for mass in range(0,rangemass):
     masss = 5*10**((float(mass))/rangemass)
