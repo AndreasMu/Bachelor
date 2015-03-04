@@ -9,15 +9,17 @@ Z = 0.02
 numberfactor = 100000.
 #The numberfactor is what I use to regulate the total number of stars
 
-rangedistance = 1250 #The amount of intervals I have for distance
+rangedistance = 100 #The amount of intervals I have for distance
 maxdistance = 5.#The maximum distance in kpc
-stepdistance = float(maxdistance)/rangedistance
+dr = float(maxdistance)/rangedistance
+rho=1
 
-rangemass = 1250 #Amount of intervals I have for mass
+rangemass = 100 #Amount of intervals I have for mass
 maxmass = 50.
 minmass = 5.
+dlogM = (math.log10(maxmass)-math.log10(minmass))/rangemass
 
-rangeage = 1250 #Amount of intervals I have for age
+rangeage = 100 #Amount of intervals I have for age
 
 
 #This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
@@ -46,8 +48,8 @@ maxage = Mainsequenceage(minmass)
 def Volume(distance):
     distance+=1.
     volumenorm=1/((4./3)*math.pi*maxdistance**3)
-    volume = volumenorm*(distance**3-(distance-1)**3)*(4./3)*math.pi*stepdistance**3
-    #volume = 4*math.pi*stepdistance**3*distance**3
+    volume = volumenorm*(distance**3-(distance-1)**3)
+    #volume = 4*math.pi*dr**3*distance**3
     #The Volume of a spherical shell is 4/3*pi*(a^3-b^3) a>b. So this is the
     #volume of the nth shell.
     return volume
@@ -61,7 +63,7 @@ for distance in range(0,rangedistance):
 def IMF(mass):
     e= 1.35 * (1/(minmass**-1.35-maxmass**-1.35))
     massfactor =  math.log(10)*e*mass**(-1.35)
-    return (massfactor/rangemass)
+    return (massfactor)
 
 def Agerelation(mass,realage):
     #This functions purpose is to make sure I don't include stars, that are already dead.
@@ -79,25 +81,10 @@ agerelation = np.zeros(rangemass*rangeage)
 agerelation = agerelation.astype(int)
 agerelation = agerelation.reshape((rangemass,rangeage))
 for mass in range(0,rangemass):
-    masss = 5*10**((float(mass))/rangemass)
+    masss = 10**(math.log10(minmass) + mass*dlogM)
     for age in range(0,rangeage):
         realage = float(age)*maxage/(rangeage)
         agerelation[mass,age]=Agerelation(masss,realage)
-
-#This will tell me how many entries there are in the agerelation matrix so
-#essentially how many stars I can simulate of a given mass.
-agerange = np.zeros(rangemass)
-agerange = agerange.astype(int)
-agerangee=0
-for mass in range(0,rangemass):
-    agerangee=0
-    for age in range(0,rangeage):
-        agerangee+=1
-        if agerelation[mass,age]==0:
-            agerange[mass]=agerangee-1
-            break
-        if age==rangeage-1:
-            agerange[mass]=agerangee
 
 
 #Here I make two matrices, which will contain Luminosity and Radius of stars of
@@ -109,7 +96,7 @@ logR = logK.reshape((rangemass,rangeage))
 logL = logL.astype(float)
 logR = logR.astype(float)
 for mass in range(0,rangemass):
-    masss = 5*10**((float(mass))/rangemass)
+    masss = 10**(math.log10(minmass) + mass*dlogM)
     for age in range(0,rangeage):
         fracage = float(age)*maxage/(rangeage*Mainsequenceage(masss))
         if (agerelation[mass,age]==1):
@@ -161,27 +148,30 @@ def Magnitude(logL,logR,distance):
     V=5*math.log10(1000*distance)-5+red+4.72-logL/0.4-bc
     return V
 
-graph=np.zeros(rangeage)
+graph=np.zeros(20)
+graph=graph.astype(float)
 masslabel = np.array(range(rangemass))
 masslabel = masslabel.astype(float)    
 for distance in range(0,rangedistance):
     realdistance=distance*maxdistance/rangedistance
+    dV=Volume(distance)*rho*(4./3)*math.pi*dr**3
     for mass in range(0,rangemass):
-        masss = 5*10**((float(mass))/rangemass) #This will make masss logarithmic
+        masss = 10**(math.log10(minmass) + mass*dlogM)
         masslabel[mass] = masss
         mainsequenceage=Mainsequenceage(masss)
+        dM=IMF(masss)*dlogM
         for age in range(0,rangeage):
             fracage = float(age)*maxage/(rangeage*mainsequenceage)
             if Magnitude(logL[mass,age],logR[mass,age],realdistance)<9 and agerelation[mass,age]==1:
-                graphage=int(fracage*rangeage)
-                graph[graphage]+=Volume(distance)*agerelation[mass,age]*IMF(masss)*numberfactor
+                graphage=int(20*fracage)
+                graph[graphage]+=dV*agerelation[mass,age]*dM
 
-agelabel = np.array(range(rangeage))
+agelabel = np.array(range(20))
 agelabel = agelabel.astype(float)
-for age in range(0,rangeage):
-    agelabel[age]= float(age)/rangeage
+for age in range(0,20):
+    agelabel[age]=age/20.
 
 plt.plot(agelabel, graph)
 plt.xlabel('t/tms')
 plt.ylabel('#stars V<9')
-plt.show()          
+plt.show()
