@@ -32,5 +32,5 @@ for mass in range(0,rangemass):
 print("Norm="+str(norm)+"\n")
 plt.plot(masslabel, massfunction)
 plt.xlabel('mass')
-plt.ylabel('dp')
+plt.ylabel('dp/dlogM')
 plt.show()

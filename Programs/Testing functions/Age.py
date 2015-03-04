@@ -32,7 +32,7 @@ def Mainsequenceage(mass):
     return tms
 
 maxage = Mainsequenceage(minmass)
-dlogt=(math.log10(maxage))/rangeage
+dlogt=(math.log10(maxage)+1)/rangeage
 print("dlogt="+str(dlogt)+"\n")
 
 def Agerelation(mass,realage):
@@ -42,12 +42,19 @@ def Agerelation(mass,realage):
     if(realage>tms):
         agefactor = 0
     else:
-        agefactor = 1./tms
+        agefactor = math.log(10)*realage/tms
     return agefactor
 
+maxdiff=0.
+agestuff=np.array(range(rangeage))
+agestuff=agestuff.astype(float)
 for mass in range(0, rangemass):
     masss = 10**(math.log10(minmass) + mass*dlogM)
-    for age in range(0,rangemass):
-        realage = 10**(age*dlogt)
+    #dlogt=(math.log10(Mainsequenceage(masss))/rangeage)
+    for age in range(0,rangeage):
+        realage = 10**(-1+age*dlogt)
+        agestuff[age]=realage
         dp = Agerelation(masss,realage)*dlogt
         norm[mass] += dp
+    if abs(1-norm[mass])>maxdiff:
+        maxdiff=1-norm[mass]
