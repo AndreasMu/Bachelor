@@ -6,20 +6,17 @@ import matplotlib.pyplot as plt
 
 Z = 0.02
 #The metalicity should be 0.02
-numberfactor = 100000.
-#The numberfactor is what I use to regulate the total number of stars
 
-rangedistance = 100 #The amount of intervals I have for distance
+rangedistance = 500 #The amount of intervals I have for distance
 maxdistance = 5.#The maximum distance in kpc
 dr = float(maxdistance)/rangedistance
-rho=1
 
-rangemass = 100 #Amount of intervals I have for mass
+rangemass = 1000 #Amount of intervals I have for mass
 maxmass = 50.
 minmass = 5.
 dlogM = (math.log10(maxmass)-math.log10(minmass))/rangemass
 
-rangeage = 100 #Amount of intervals I have for age
+rangeage = 1000 #Amount of intervals I have for age
 
 
 #This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
@@ -46,14 +43,9 @@ def Mainsequenceage(realmass):
 maxage = Mainsequenceage(minmass)
 dlogt=(math.log10(maxage)+1)/rangeage
 
-def Volume(distance):
-    distance+=1.
-    volumenorm=1/((4./3)*math.pi*maxdistance**3)
-    volume = volumenorm*(distance**3-(distance-1)**3)
-    #volume = 4*math.pi*dr**3*distance**3
-    #The Volume of a spherical shell is 4/3*pi*(a^3-b^3) a>b. So this is the
-    #volume of the nth shell.
-    return volume
+def DpdV(distance):
+    dpdv=1/((4./3)*math.pi*maxdistance**3)
+    return dpdv
 
 """volumelabel = np.array(range(rangedistance))
 volumelabel = volumelabel.astype(float)
@@ -61,36 +53,26 @@ for distance in range(0,rangedistance):
     volumelabel[distance]=Volume(distance)
     #The volumelabel will save the fractional volume of each shell."""
 
-def IMF(realmass):
-    e= 1.35 * (1/(minmass**-1.35-maxmass**-1.35))
-    massfactor =  math.log(10)*e*realmass**(-1.35)
-    return (massfactor)
+def DpdlogM(realmass):
+    A= 1.35 * (1/(minmass**-1.35-maxmass**-1.35))
+    dpdlogM =  math.log(10)*A*realmass**(-1.35)
+    return (dpdlogM)
 
-def Agerelation(realmass,realage):
+def Dpdlogt(realmass,realage):
     tms = Mainsequenceage(realmass)
     if(realage>tms):
-        agefactor = 0
+        dpdlogt = 0
     else:
-        agefactor = math.log(10)*realage/tms
-    return agefactor
-
-#Here an agerelation matrix is filled so I can easily check, whether a star of
-#mass x age y actually exists. 
-agerelation = np.zeros(rangemass*rangeage)
-agerelation = agerelation.astype(int)
-agerelation = agerelation.reshape((rangemass,rangeage))
-for mass in range(0,rangemass):
-    realmass = 10**(math.log10(minmass) + mass*dlogM)
-    for age in range(0,rangeage):
-        realage = 10**(-1.+age*dlogt)
-        agerelation[mass,age]=Agerelation(realmass,realage)
+        dpdlogt = math.log(10)*realage/tms
+    return dpdlogt
 
 #Here I make two matrices, which will contain Luminosity and Radius of stars of
 #a specific age and mass. In the later parts of this program I can then simply
 #use these matrices instead of always having to call the function from Lumiradius.py
-logK = np.array(range(rangemass*rangeage))
-logL = logK.reshape((rangemass,rangeage))
-logR = logK.reshape((rangemass,rangeage))
+logL = np.array(range(rangemass*rangeage))
+logR = np.array(range(rangemass*rangeage))
+logL = logL.reshape((rangemass,rangeage))
+logR = logR.reshape((rangemass,rangeage))
 logL = logL.astype(float)
 logR = logR.astype(float)
 for mass in range(0,rangemass):
@@ -98,7 +80,7 @@ for mass in range(0,rangemass):
     for age in range(0,rangeage):
         realage = 10**(-1.+age*dlogt)
         fracage = realage/Mainsequenceage(realmass)
-        if (agerelation[mass,age]!=0):
+        if (fracage<=1):
             logL[mass,age], logR[mass,age]= LR.Lumiradius(realmass, Z, fracage)
         else:
             logL[mass,age] = 0
@@ -139,40 +121,48 @@ def Magnitude(logL,logR,distance):
     #Mbol=MV+BC
     #L/L_\odot=0.4*(4.72-Mbol)
     #Therefore: V=5*log10(distance)-5+Reddening+4.72-\frac[L}{0.4}-BC
+    #if distance==0:####################################################
+    #    return 10######################################################
     red=Reddening(distance)
     T=Temperature(logL,logR)
     bc=BC(T)
-    if distance==0:
-        return 10
     V=5*math.log10(1000*distance)-5+red+4.72-logL/0.4-bc
     return V
 
+dtau=1./20.
 graph=np.zeros(20)
 graph=graph.astype(float)
 masslabel = np.array(range(rangemass))
 masslabel = masslabel.astype(float)    
-for distance in range(0,rangedistance):
+for distance in range(1,rangedistance+1):
     realdistance=distance*maxdistance/rangedistance
-    dV=Volume(distance)*(4./3)*math.pi*dr**3
+    dV=4*math.pi*dr**3*distance**2
+    dpv=DpdV(distance)*dV
     for mass in range(0,rangemass):
         realmass = 10**(math.log10(minmass) + mass*dlogM)
         masslabel[mass] = realmass
         mainsequenceage=Mainsequenceage(realmass)
-        dM=IMF(realmass)*dlogM
+        dpm=DpdlogM(realmass)*dlogM
         for age in range(0,rangeage):
             realage = 10**(-1.+age*dlogt)
             fracage = realage/mainsequenceage
-            dt=Agerelation(realmass,realage)*dlogt
-            if Magnitude(logL[mass,age],logR[mass,age],realdistance)<9 and agerelation[mass,age]==1:
+            dpt=Dpdlogt(realmass,realage)*dlogt
+            if Magnitude(logL[mass,age],logR[mass,age],realdistance)<9 and fracage<=1:
                 graphage=int(20*fracage)
-                graph[graphage]+=dV*dt*dM
+                graph[graphage]+=dpv*dpt*dpm/dtau
 
 agelabel = np.array(range(20))
 agelabel = agelabel.astype(float)
 for age in range(0,20):
     agelabel[age]=age/20.
 
+norm=0.
+for bins in range(0,20):
+    norm+=graph[bins]*dtau
+for bins in range(0,20):
+    graph[bins]=graph[bins]/norm
+
 plt.plot(agelabel, graph)
 plt.xlabel('t/tms')
-plt.ylabel('#stars V<9')
+plt.ylabel('probability density')
 plt.show()
