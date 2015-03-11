@@ -7,16 +7,16 @@ import matplotlib.pyplot as plt
 Z = 0.02
 #The metalicity should be 0.02
 
-rangedistance = 500 #The amount of intervals I have for distance
-maxdistance = 5.#The maximum distance in kpc
+rangedistance = 50 #The amount of intervals I have for distance
+maxdistance = 3.#The maximum distance in kpc
 dr = float(maxdistance)/rangedistance
 
-rangemass = 1000 #Amount of intervals I have for mass
+rangemass = 100 #Amount of intervals I have for mass
 maxmass = 50.
 minmass = 5.
 dlogM = (math.log10(maxmass)-math.log10(minmass))/rangemass
 
-rangeage = 1000 #Amount of intervals I have for age
+rangeage = 100 #Amount of intervals I have for age
 
 
 #This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
@@ -144,12 +144,13 @@ for distance in range(1,rangedistance+1):
         mainsequenceage=Mainsequenceage(realmass)
         dpm=DpdlogM(realmass)*dlogM
         for age in range(0,rangeage):
-            realage = 10**(-1.+age*dlogt)
+            realage = 10**(-1+age*dlogt)
             fracage = realage/mainsequenceage
             dpt=Dpdlogt(realmass,realage)*dlogt
             if Magnitude(logL[mass,age],logR[mass,age],realdistance)<9 and fracage<=1:
                 graphage=int(20*fracage)
                 graph[graphage]+=dpv*dpt*dpm/dtau
+                
 
 agelabel = np.array(range(20))
 agelabel = agelabel.astype(float)
@@ -162,7 +163,15 @@ for bins in range(0,20):
 for bins in range(0,20):
     graph[bins]=graph[bins]/norm
 
-plt.plot(agelabel, graph)
+fh=open('data.txt','r')
+rawdata=np.loadtxt(fh,usecols=(1,3))
+fh.close()
+
+data=rawdata[:,0]
+error=rawdata[:,1]
+
+plt.plot(agelabel, graph, 'r--')
+plt.errorbar(agelabel, data, yerr=error,fmt='')
 plt.xlabel('t/tms')
 plt.ylabel('probability density')
 plt.show()

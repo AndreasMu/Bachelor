@@ -17,6 +17,21 @@
  I used Window to the stars for simulating stars and seeing, whether the luminosity, the radius and other values 
  I obtained using my code are realistic. I found out luminosity was a little too small. So I need to check lumradius.py
 
+ \section{to do}
+			    Aber morgen ist der Plan: Die Korrektur finden und implementieren, ein paar Sterne von Lucas .dat File ueberpruefen und wenn das alles passt die Daten in ein file schreiben (bzw das vorzubereiten, um das ueber Nacht machen zu lassen) und anfangen mir eine Gliederung zu ueberlegen.
+[18:23:22] Fabian Schneider: jo. und ein vergleichsdiagramm ohne magnitudencut waere sehr hilfreich
+[18:23:38] Fabian Schneider: also deinen code zweimal laufen lassen und den cut rausnehmen
+[18:23:49] Fabian Schneider: damit man dann erklaeren kann wie sich das mit dem cut veraendert
+
+
+			    ich denke das ist viel einfacher
+[18:28:13] Fabian Schneider: mach mal schluss
+[18:28:35] Fabian Schneider: und morgen ueberlegst du nochmal wo ueberhaupt wahrscheinlichkeit fehlt
+[18:28:43] Fabian Schneider: masse? alter? distanz?
+[18:29:08] Fabian Schneider: und dann kommst du sicher schnell drauf wieviel das sein muss
+[18:30:03] Fabian Schneider: sterne leben von 0 Myr bis tms Myr, deine aufloesung/grid geht aber nur von 0.1 Myr bis tms Myr...
+
+ 
  \section{Sources}
  The following papers were consulted during the making of this thesis
  http://adsabs.harvard.edu/abs/1955ApJ...121..161S
