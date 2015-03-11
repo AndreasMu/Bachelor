@@ -7,16 +7,16 @@ import matplotlib.pyplot as plt
 Z = 0.02
 #The metalicity should be 0.02
 
-rangedistance = 50 #The amount of intervals I have for distance
+rangedistance = 430 #The amount of intervals I have for distance
 maxdistance = 3.#The maximum distance in kpc
 dr = float(maxdistance)/rangedistance
 
-rangemass = 100 #Amount of intervals I have for mass
+rangemass = 860 #Amount of intervals I have for mass
 maxmass = 50.
 minmass = 5.
 dlogM = (math.log10(maxmass)-math.log10(minmass))/rangemass
 
-rangeage = 100 #Amount of intervals I have for age
+rangeage = 860 #Amount of intervals I have for age
 
 
 #This function is an excerpt from Lumiradius.py. Since Z=0.02 in our case the formulas
@@ -41,7 +41,7 @@ def Mainsequenceage(realmass):
     return tms
 
 maxage = Mainsequenceage(minmass)
-dlogt=(math.log10(maxage)+1)/rangeage
+dlogt=(math.log10(maxage)+2)/rangeage
 
 def DpdV(distance):
     dpdv=1/((4./3)*math.pi*maxdistance**3)
@@ -78,7 +78,7 @@ logR = logR.astype(float)
 for mass in range(0,rangemass):
     realmass = 10**(math.log10(minmass) + mass*dlogM)
     for age in range(0,rangeage):
-        realage = 10**(-1.+age*dlogt)
+        realage = 10**(-2.+age*dlogt)
         fracage = realage/Mainsequenceage(realmass)
         if (fracage<=1):
             logL[mass,age], logR[mass,age]= LR.Lumiradius(realmass, Z, fracage)
@@ -132,8 +132,10 @@ def Magnitude(logL,logR,distance):
 dtau=1./20.
 graph=np.zeros(20)
 graph=graph.astype(float)
+nocut=np.zeros(20)
+nocut=nocut.astype(float)
 masslabel = np.array(range(rangemass))
-masslabel = masslabel.astype(float)    
+masslabel = masslabel.astype(float)
 for distance in range(1,rangedistance+1):
     realdistance=distance*maxdistance/rangedistance
     dV=4*math.pi*dr**3*distance**2
@@ -142,36 +144,52 @@ for distance in range(1,rangedistance+1):
         realmass = 10**(math.log10(minmass) + mass*dlogM)
         masslabel[mass] = realmass
         mainsequenceage=Mainsequenceage(realmass)
+        #corrfact=1+len(graph)*0.1/mainsequenceage
         dpm=DpdlogM(realmass)*dlogM
+        #graph[0]+=dpv*dpm*0.1/(mainsequenceage*dtau)
         for age in range(0,rangeage):
-            realage = 10**(-1+age*dlogt)
+            realage = 10**(-2+age*dlogt)
             fracage = realage/mainsequenceage
+            graphage=int(20*fracage)
             dpt=Dpdlogt(realmass,realage)*dlogt
+            if fracage<=1:
+                nocut[graphage]+=dpv*dpt*dpm/dtau
             if Magnitude(logL[mass,age],logR[mass,age],realdistance)<9 and fracage<=1:
-                graphage=int(20*fracage)
                 graph[graphage]+=dpv*dpt*dpm/dtau
                 
 
-agelabel = np.array(range(20))
-agelabel = agelabel.astype(float)
+agelabel = np.arange(20,dtype=np.float)
 for age in range(0,20):
     agelabel[age]=age/20.
 
 norm=0.
+normnocut=0.
 for bins in range(0,20):
     norm+=graph[bins]*dtau
+    normnocut+=nocut[bins]*dtau
 for bins in range(0,20):
     graph[bins]=graph[bins]/norm
+    nocut[bins]=nocut[bins]/normnocut
 
 fh=open('data.txt','r')
-rawdata=np.loadtxt(fh,usecols=(1,3))
+rawdata=np.loadtxt(fh,skiprows=1,usecols=(1,3))
 fh.close()
 
-data=rawdata[:,0]
-error=rawdata[:,1]
+data=np.arange(20,dtype=np.float)
+error=np.arange(20,dtype=np.float)
+for i in range(0,20):
+    data[i]=rawdata[i,0]
+    error[i]=rawdata[i,1]
 
-plt.plot(agelabel, graph, 'r--')
+Dataforfile=np.column_stack((agelabel,graph))
+np.savetxt('compdata.txt',Dataforfile,fmt='%5.3f')
+
+Dataforfilenocut=np.column_stack((agelabel,nocut))
+np.savetxt('compdatanocut.txt',Dataforfilenocut,fmt='%5.3f')
+
+'''plt.plot(agelabel, nocut, 'r--')
 plt.errorbar(agelabel, data, yerr=error,fmt='')
 plt.xlabel('t/tms')
 plt.ylabel('probability density')
 plt.show()
+'''

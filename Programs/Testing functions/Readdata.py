@@ -26,4 +26,4 @@ for age in range(0,20):
     agelabel[age]=age/20.
 
 plt.figure()    
-plt.errorbar(agelabel,y,yerr=y2)
+plt.errorbar(agelabel,y,yerr=yerr)
