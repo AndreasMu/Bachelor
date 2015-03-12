@@ -14,14 +14,14 @@ magdata=Data[:,0]
 Teffdata=Data[:,6]
 logLdata=Data[:,1]
 Agedata=Data[:,3]
-FracMsdata=Data[:,4]
+Fracmsdata=Data[:,4]
 Rdata=Data[:,5]
 Distdata=Data[:,7]
 BCdata=Data[:,8]
 minmass=10
-for i in range(len(Mini)):
-    if minmass > Mini[i]:
-        minmass=Mini[i]
+for i in range(len(Massdata)):
+    if minmass > Massdata[i]:
+        minmass=Massdata[i]
 
 logRdata=np.array(range(len(Rdata)))
 logRdata=logRdata.astype(float)
@@ -60,7 +60,7 @@ maxage = Mainsequenceage(minmass)
 logLcomp = np.arange(len(Rdata),dtype=np.float)
 logRcomp = np.arange(len(Rdata),dtype=np.float)
 for i in range(len(Rdata)):
-    logLcomp[i], logRcomp[i]= LR.Lumiradius(Massdata[i], Z, FracMsdata[i])
+    logLcomp[i], logRcomp[i]= LR.Lumiradius(Massdata[i], Z, Fracmsdata[i])
 
 
 #This is the start of calculating the visual magnitude of the star.
@@ -114,15 +114,27 @@ maxdiff2=0
 averagediff1=0.
 averagediff2=0.
 for i in range(len(logRdata)):
-    magcomp1[i]=Magnitude(logLcomp[i],logRcomp[i],Distdata[i])
-    magcomp2[i]=Magnitude(logLdata[i],logRdata[i],Distdata[i])
-    magdiff1[i]=magcomp1[i]-magdata[i]
+    magcomp2[i]=Magnitude(logLcomp[i],logRcomp[i],Distdata[i])
+    magcomp1[i]=Magnitude(logLdata[i],logRdata[i],Distdata[i])
     magdiff2[i]=magcomp2[i]-magdata[i]
-    if maxdiff1<magdiff1[i]:
-        maxdiff1=magdiff1[i]
+    magdiff1[i]=magcomp1[i]-magdata[i]
     if maxdiff2<magdiff2[i]:
         maxdiff2=magdiff2[i]
-    averagediff1+=abs(magdiff1[i])
+    if maxdiff1<magdiff1[i]:
+        maxdiff1=magdiff1[i]
     averagediff2+=abs(magdiff2[i])
+    averagediff1+=abs(magdiff1[i])
 averagediff1=averagediff1/len(Rdata)
 averagediff2=averagediff2/len(Rdata)
+
+np.savetxt('magdiff2.txt',magdiff2,fmt='%5.3f')
+np.savetxt('magdiff1.txt',magdiff1,fmt='%5.3f')
+
+for i in range(len(Rdata)):
+    Distdata[i]=math.log10(Distdata[i])
+    
+plt.plot(Distdata, magdiff1, 'bs')
+plt.plot(Distdata, magdiff2, 'r^')
+plt.xlabel('log_10(distance)')
+plt.ylabel('Difference magobs-magcomp')
+plt.show()
