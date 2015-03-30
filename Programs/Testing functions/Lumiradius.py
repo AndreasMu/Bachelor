@@ -1,6 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.constants import sigma
 
 #All those manual input routines are not needed anymore for this program.
 """M=raw_input("Greetings and welcome! My name is Richard and I am Andreas' first python program!\n\n\
@@ -100,6 +101,7 @@ BETWEEN 0 AND 1! I WON'T BE ABLE TO WORK WITH ANYTHING ELSE.")
 #Now that the fun stuff is out of the way, I start calculating.
 #First I calculate the coefficients a to subsequently calculate everything else.
 #This will be a whole lot of coefficients.
+
 
 def Lumiradius(M,Z,Age):
     Squiggle= math.log10((Z/0.02))
@@ -344,23 +346,45 @@ def Lumiradius(M,Z,Age):
     #End of calculations!
     return (logL, logR)
 
+def Temperature(logL,logR):
+    #I know: L=sigma*A*T**4 and A=4*pi*R**2
+    #Therefore: T=sqrt(sqrt(L/(sigma*4*pi*R**2)))
+    temperature=math.sqrt(math.sqrt((10**logL*3.846e26)/(sigma*4*math.pi*(10**logR*696342000)**2)))
+    return math.log10(temperature)
+
+
 #Testing whether this function actually works
-"""arrayR=np.array(range(101))
-arrayR=arrayR.astype(float)
-arrayL=np.array(range(101))
-arrayL=arrayL.astype(float)
-arrayT=np.array(range(101))
-arrayT=arrayT.astype(float)
+arrayR=np.arange(11*45,dtype=np.float)
+arrayL=np.arange(11*45,dtype=np.float)
+arrayT=np.arange(11*45,dtype=np.float)
+arrayR=arrayR.reshape((11,45))
+arrayL=arrayL.reshape((11,45))
+arrayT=arrayT.reshape((11,45))
+
 Age=0
-Iteration=0
-M=1.58489319
 Z=0.02
-while(Iteration<101):
-    Lumiradius(M,Z,Age)
-    Age+=0.01
-    Iteration+=1
-plt.plot(arrayT, arrayL)
+mass=5
+Mi=0
+dlogM = (math.log10(50)-math.log10(5))/45
+while(Mi<45):
+    Iteration=0
+    M = 10**(math.log10(5) + Mi*dlogM)
+    Age=0
+    while(Iteration<11):
+        arrayL[Iteration,Mi],arrayR[Iteration,Mi]=Lumiradius(M,Z,Age)
+        arrayT[Iteration,Mi]=Temperature(arrayL[Iteration,Mi],arrayR[Iteration,Mi])
+        Age+=0.1
+        Iteration+=1
+    mass+=1
+    Mi+=1
+
+arrayt=np.arange(11*45,dtype=np.float)
+arrayt=arrayt.reshape((11,45))
+for i in range(11):
+    arrayt[i,:]=i/10.
+for i in range(45):
+    plt.plot(arrayt[:,i],arrayL[:,i])
+#plt.plot(arrayT[:,0], arrayL[:,0], arrayT[:,1], arrayL[:,1],arrayT[:,2], arrayL[:,2],arrayT[:,3],arrayL[:,3],arrayT[:,4],arrayL[:,4])
 plt.xlabel('t/tms')
 plt.ylabel('log(L)')
 plt.show()
-"""

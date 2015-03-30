@@ -7,16 +7,16 @@ import matplotlib.pyplot as plt
 Z = 0.02
 #The metalicity should be 0.02
 
-rangedistance = 50 #The amount of intervals I have for distance
+rangedistance = 10 #The amount of intervals I have for distance
 maxdistance = 3.#The maximum distance in kpc
 dr = float(maxdistance)/rangedistance #size of distance bins
 
-rangemass = 50 #Amount of intervals I have for mass
+rangemass = 10 #Amount of intervals I have for mass
 maxmass = 50. #Maximum and minimum mass
 minmass = 5.
 dlogM = (math.log10(maxmass)-math.log10(minmass))/rangemass #Size of logarithmic mass bins
 
-rangeage = 50
+rangeage = 10
 
 #Amount of intervals I have for age
 
