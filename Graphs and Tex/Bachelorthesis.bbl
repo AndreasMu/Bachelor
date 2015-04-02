@@ -1,0 +1,19 @@
+\begin{thebibliography}{}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{Am{\^o}res} \& {L{\'e}pine}(2005)}]{2005AJ....130..659A}
+{Am{\^o}res}, E.~B., \& {L{\'e}pine}, J.~R.~D. 2005, \aj, 130, 659
+
+\bibitem[{{Hurley} {et~al.}(2000){Hurley}, {Pols}, \&
+  {Tout}}]{2000MNRAS.315..543H}
+{Hurley}, J.~R., {Pols}, O.~R., \& {Tout}, C.~A. 2000, \mnras, 315, 543
+
+\bibitem[{{Salpeter}(1955)}]{1955ApJ...121..161S}
+{Salpeter}, E.~E. 1955, \apj, 121, 161
+
+\bibitem[{{Tout} {et~al.}(1996){Tout}, {Pols}, {Eggleton}, \&
+  {Han}}]{1996MNRAS.281..257T}
+{Tout}, C.~A., {Pols}, O.~R., {Eggleton}, P.~P., \& {Han}, Z. 1996, \mnras,
+  281, 257
+
+\end{thebibliography}

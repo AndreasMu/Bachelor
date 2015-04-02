@@ -133,8 +133,8 @@ np.savetxt('magdiff1.txt',magdiff1,fmt='%5.3f')
 for i in range(len(Rdata)):
     Distdata[i]=math.log10(Distdata[i])
     
-plt.plot(Distdata, magdiff1, 'bs')
-plt.plot(Distdata, magdiff2, 'r^')
-plt.xlabel('log_10(distance)')
-plt.ylabel('Difference magobs-magcomp')
+plt.plot(Massdata, magdiff1, 'r^')
+#plt.plot(Distdata, magdiff2, 'r^')
+plt.xlabel('$M/M_\odot$')
+plt.ylabel('Obsmag-Datamag')
 plt.show()

@@ -345,7 +345,7 @@ def Lumiradius(M,Z,Age):
     #print"LTMS=%g"%LTMS
     #End of calculations!
     return (logL, logR)
-
+'''
 def Temperature(logL,logR):
     #I know: L=sigma*A*T**4 and A=4*pi*R**2
     #Therefore: T=sqrt(sqrt(L/(sigma*4*pi*R**2)))
@@ -388,3 +388,4 @@ for i in range(45):
 plt.xlabel('t/tms')
 plt.ylabel('log(L)')
 plt.show()
+'''
