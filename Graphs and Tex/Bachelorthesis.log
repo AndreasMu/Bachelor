@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.7.14)  2 APR 2015 15:41
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.7.14)  3 APR 2015 16:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -416,29 +416,90 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--52
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 114--116
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
-(./Bachelorthesis.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
- [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 125.
+<diffmagfracms.png, id=67, 586.8324pt x 442.2924pt>
+File: diffmagfracms.png Graphic file (type png)
+ <use diffmagfracms.png>
+Package pdftex.def Info: diffmagfracms.png used on input line 119.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<diffmagAge.png, id=69, 586.8324pt x 442.2924pt>
+File: diffmagAge.png Graphic file (type png)
+ <use diffmagAge.png>
+Package pdftex.def Info: diffmagAge.png used on input line 122.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<diffmagmass.png, id=73, 586.8324pt x 442.2924pt>
+File: diffmagmass.png Graphic file (type png)
+ <use diffmagmass.png>
+Package pdftex.def Info: diffmagmass.png used on input line 137.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<diffmaglogdist.png, id=74, 586.8324pt x 442.2924pt>
+File: diffmaglogdist.png Graphic file (type png)
+ <use diffmaglogdist.png>
+Package pdftex.def Info: diffmaglogdist.png used on input line 140.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+[3 <./diffmagfracms.png> <./diffmagAge.png>]
+<100-100-100.png, id=86, 586.8324pt x 442.2924pt>
+File: 100-100-100.png Graphic file (type png)
+ <use 100-100-100.png>
+Package pdftex.def Info: 100-100-100.png used on input line 151.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<50-50-50.png, id=87, 586.8324pt x 442.2924pt>
+File: 50-50-50.png Graphic file (type png)
+ <use 50-50-50.png>
+Package pdftex.def Info: 50-50-50.png used on input line 154.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<100-50-100.png, id=88, 586.8324pt x 442.2924pt>
+File: 100-50-100.png Graphic file (type png)
+ <use 100-50-100.png>
+Package pdftex.def Info: 100-50-100.png used on input line 162.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<100-100-50.png, id=89, 586.8324pt x 442.2924pt>
+File: 100-100-50.png Graphic file (type png)
+ <use 100-100-50.png>
+Package pdftex.def Info: 100-100-50.png used on input line 165.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<50-100-100.png, id=90, 586.8324pt x 442.2924pt>
+File: 50-100-100.png Graphic file (type png)
+ <use 50-100-100.png>
+Package pdftex.def Info: 50-100-100.png used on input line 175.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+
+<10-100-100.png, id=91, 586.8324pt x 442.2924pt>
+File: 10-100-100.png Graphic file (type png)
+ <use 10-100-100.png>
+Package pdftex.def Info: 10-100-100.png used on input line 178.
+(pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
+ [4 <./diffmagmass.png> <./diffmaglogdist.png> <./100-100-100.png> <./50-50-50.
+png> <./100-50-100.png> <./100-100-50.png>] (./Bachelorthesis.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 189.
+ [5 <./50-100-100.png> <./10-100-100.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 189.
  (./Bachelorthesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 189.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 189.
 Package rerunfilecheck Info: File `Bachelorthesis.out' has not changed.
-(rerunfilecheck)             Checksum: 208FF28CF4E677626E5E32305F877C0F;186.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 125.
+(rerunfilecheck)             Checksum: B30BD6B7609F1FEBDC2207C0E23AC142;178.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 189.
  ) 
 Here is how much of TeX's memory you used:
- 7166 strings out of 493628
- 100636 string characters out of 3148973
- 202738 words of memory out of 3000000
- 10325 multiletter control sequences out of 15000+200000
+ 7232 strings out of 493628
+ 101773 string characters out of 3148973
+ 203860 words of memory out of 3000000
+ 10373 multiletter control sequences out of 15000+200000
  6252 words of font info for 25 fonts, out of 3000000 for 9000
  935 hyphenation exceptions out of 8191
- 29i,5n,28p,342b,352s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,6n,28p,344b,441s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -449,10 +510,10 @@ t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
 public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmsy7.pfb>
-Output written on Bachelorthesis.pdf (3 pages, 123316 bytes).
+Output written on Bachelorthesis.pdf (5 pages, 297860 bytes).
 PDF statistics:
- 114 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
- 24 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 155 PDF objects out of 1000 (max. 8388607)
+ 116 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 83 words of extra memory for PDF output out of 10000 (max. 10000000)
 

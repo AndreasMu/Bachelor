@@ -21,14 +21,11 @@
  \section{Introduction}
  --Initial Problem (graph of obs data)\\
  --First thoughts (Hypothesis)\\
- --What Methods are viable?\\
  \section{Method}
  --Which Method did I use and why?\\
- --General approach (structure of main.py?)\\
- --What does Lumiradius.py do?\\
  \textbf{For this approach I used two programs: main.py and lumiradius.py.} \\
  
- I had the choice between two different approaches: A montecarlo approach and a grid approach. 
+ I had the choice between two different approaches: A montecarlo approach and a grid approach. \\
  
  In my program I use the grid approach. I span a grid in distance-mass-age. The range of these three
  variables can be easily adjusted, as can the binning. In accordance to the observational data I try to explain, distance goes from \
@@ -110,18 +107,79 @@
  \begin{equation}
   \frac{dp}{d\tau}=\frac{dp}{dV}dV \cdot \frac{dp}{d\log t}d\log t \cdot \frac{dp}{d\log M}d\log M\cdot \frac{1}{d\tau}
  \end{equation}
- I now split $\tau$ in 20 bins. For every possible star in my sample I will first check $\tau\le 1$
+ I now split $\tau$ in 20 bins. For every possible star in my sample I will check $\tau\le 1$ and $V\le 9$ This way I count every
+ star on the main sequence, that falls below my magnitude cut. 
 
  
- \subsection{optimization}
  The binning can be freely adjusted. To optimize runtime of my program I conducted a few tests to adjust the binnings in all three dimensions.\\
- \textbf{graphics of 50-100-100, 100-50-100, 100-100-50 with caption: this is why I chose 1:2:2}\\
+ \section{testing stuffs}
+ I 
+  \begin{center}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{diffmagfracms}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{diffmagAge}
+  \end{minipage}
+ \end{center}
+ \captionof{figure}{Difference between computed and observed magnitudes as a function of fractional main sequence age (left) and total age
+ (right). The theoretical magnitudes were computed using stellar radius, luminosity and distance.\label{fracageage}}
+ 
+ 
+ Figure \ref{fracageage} shows the difference between computed and observed magnitudes as a function of fractional main sequence age (left) and total age
+ (right). It shows, that for some stars there is an offset to higher $V_{comp}$ at high $\tau$ and low absolute ages. This implies, that
+ this disagreement shows up in high-mass stars near TAMS. This can be explained using \citep[figure 1]{2014A&A...570L..13C}. My code uses
+ an evolutionary model similar to the one used at the lefthand side. $V_{obs}$ however is obtained using a model similar to the righthand
+ side. Because TAMS is at different points there will be differences at TAMS.
+ 
+ \begin{center}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{diffmagmass}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{diffmaglogdist}
+  \end{minipage}
+ \end{center}
+ \captionof{figure}{Difference between computed and observed magnitudes as a function of Mass (left) and $log_{10}(distance)$ (right).
+ The theoretical magnitudes were computed using stellar radius, luminosity and distance. \label{massdist}}
+ 
+ Figure \ref{massdist} 
+ 
+ 
+ \begin{center}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{100-100-100}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{50-50-50}
+  \end{minipage}
+   \captionof{figure}{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
+ 100-100-100 (left) and 50-50-50 (right) in distance-mass-age.\label{100-100-100}}
+ \end{center}
 
- I execute a pair of nested loops in mass and age to get all the data I need from lumiradius.py and save the results in two dimensional
- arrays. This way I won't have to call the function unnecessarily often in the core function.
- \section{results and conclusion}
- \textbf{includegraphics}
- \captionof{figure}{In this graphic there are three probability distributions. resolution of 100-1000-1000.}
+ \begin{center}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{100-50-100}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{100-100-50}
+  \end{minipage}
+   \captionof{figure}{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
+ 100-50-100 (left) and 100-100-50 (right) in distance-mass-age.\label{100-50-100}}
+ \end{center}
+
+ 
+ 
+ \begin{center}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{50-100-100}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+   \includegraphics[width=\textwidth]{10-100-100}
+  \end{minipage}
+   \captionof{figure}{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
+ 50-100-100 (left) and 10-100-100 (right) in distance-mass-age.\label{10-100-100}}
+ \end{center}
  
  
  

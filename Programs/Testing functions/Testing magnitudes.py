@@ -133,8 +133,9 @@ np.savetxt('magdiff1.txt',magdiff1,fmt='%5.3f')
 for i in range(len(Rdata)):
     Distdata[i]=math.log10(Distdata[i])
     
-plt.plot(Massdata, magdiff1, 'r^')
+plt.plot(Agedata, magdiff1, 'r^')
 #plt.plot(Distdata, magdiff2, 'r^')
-plt.xlabel('$M/M_\odot$')
-plt.ylabel('Obsmag-Datamag')
+plt.ylim(ymin=-2.999)
+plt.xlabel('$Age/\mathrm{Myr}$')
+plt.ylabel('$V_{comp}-V_{obs}$')
 plt.show()
