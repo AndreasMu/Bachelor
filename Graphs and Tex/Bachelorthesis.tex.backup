@@ -5,7 +5,6 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{subfigure}
-\usepackage[german]{babel}
 \usepackage{fontenc}
 \usepackage{graphicx}
 \usepackage{capt-of}
@@ -112,76 +111,92 @@
 
  
  The binning can be freely adjusted. To optimize runtime of my program I conducted a few tests to adjust the binnings in all three dimensions.\\
+ 
+ 
  \section{testing stuffs}
- I 
-  \begin{center}
+ 
+ 
+  \begin{figure}[h!]
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{diffmagfracms}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{diffmagAge}
   \end{minipage}
- \end{center}
- \captionof{figure}{Difference between computed and observed magnitudes as a function of fractional main sequence age (left) and total age
+ \caption{Difference between computed and observed magnitudes as a function of fractional main sequence age (left) and total age
  (right). The theoretical magnitudes were computed using stellar radius, luminosity and distance.\label{fracageage}}
- 
+ \end{figure}
  
  Figure \ref{fracageage} shows the difference between computed and observed magnitudes as a function of fractional main sequence age (left) and total age
  (right). It shows, that for some stars there is an offset to higher $V_{comp}$ at high $\tau$ and low absolute ages. This implies, that
  this disagreement shows up in high-mass stars near TAMS. This can be explained using \citep[figure 1]{2014A&A...570L..13C}. My code uses
  an evolutionary model similar to the one used at the lefthand side. $V_{obs}$ however is obtained using a model similar to the righthand
- side. Because TAMS is at different points there will be differences at TAMS.
+ side. I do expect differences at TAMS.\\
+ The deviation to negative values is most prevalent in lower absolute ages. This coincides with my hypothesis, that this is caused by 
+ extinction. Stars of lower ages are primarily found in regions of active star formation. This would mean, that they are found in regions
+ of high gas density. This gas will cause extinction and thus increase $V_{obs}$. 
  
- \begin{center}
+ \begin{figure}[h!]
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{diffmagmass}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{diffmaglogdist}
   \end{minipage}
- \end{center}
- \captionof{figure}{Difference between computed and observed magnitudes as a function of Mass (left) and $log_{10}(distance)$ (right).
+ \caption{Difference between computed and observed magnitudes as a function of Mass (left) and $log_{10}(r/\mathrm{kpc})$ (right).
  The theoretical magnitudes were computed using stellar radius, luminosity and distance. \label{massdist}}
+ \end{figure}
  
- Figure \ref{massdist} 
+ Figure \ref{massdist} shows the difference between computed and observed magnitudes as a function of Mass(left) and 
+ $log_{10}(r/\mathrm{kpc})$ (right). The lefhandside supports my initial hypothesis, that the discrepancies are mostly at higher masses. 
+ It is especially interesting, that the large discrepancies only start at 25 $M_\odot$. \textbf{inflation}\\
+ It is quite 
  
  
- \begin{center}
+ 
+ \begin{figure}[h!]
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{100-100-100}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
-   \includegraphics[width=\textwidth]{50-50-50}
+   \includegraphics[width=\textwidth]{10-100-100}
   \end{minipage}
-   \captionof{figure}{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
- 100-100-100 (left) and 50-50-50 (right) in distance-mass-age.\label{100-100-100}}
- \end{center}
+   \caption{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
+ 100-100-100 (left) and 10-100-100 (right) in distance-mass-age.\label{100-100-100}}
+ \end{figure}
 
- \begin{center}
+ \begin{figure}[h!]
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{100-50-100}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{100-100-50}
   \end{minipage}
-   \captionof{figure}{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
- 100-50-100 (left) and 100-100-50 (right) in distance-mass-age.\label{100-50-100}}
- \end{center}
-
+   \caption{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
+ 100-50-100 (left) and 100-100-50 (right) in distance-mass-aghe.\label{100-50-100}}
+ \end{figure}
  
+  Figures \ref{100-100-100} and \ref{100-50-100} show the probability density function for all stars in the sample
+  with a magnitude cut at V=9 with different distance-mass-age binnings. The left graph of \ref{100-100-100} shows the reference graph
+  with a binning of 100 for all variables. The right one then has the binning in distance reduced by a factor of ten. Both graphs
+  are very similar. This means, that distance will be very robust to low binnings. Figure \ref{100-50-100} 
+  now shows the same graph with the binning in mass (left) and age (right) halved. Here the discrepancies are very obvious. 
+  Because of this I use a binning of 100-1000-1000 for my final data.
  
- \begin{center}
-  \begin{minipage}{0.49\textwidth}
-   \includegraphics[width=\textwidth]{50-100-100}
-  \end{minipage}
-  \begin{minipage}{0.49\textwidth}
-   \includegraphics[width=\textwidth]{10-100-100}
-  \end{minipage}
-   \captionof{figure}{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
- 50-100-100 (left) and 10-100-100 (right) in distance-mass-age.\label{10-100-100}}
- \end{center}
+ \newpage
+ \section{results}
+ \begin{figure}[h!]
+   \includegraphics[width=\textwidth]{plot1}
+   \caption{Probability density function with magnitude cut at V=9 (red line), probability density function without magnitude cut
+   (black line) and observational data with error bars (blue line). All computed Data is obtained using a binning of 100-1000-1000
+   in distance-mass-age. The observational data is taken from \textbf{citation?}\label{all3}}
+ \end{figure}
  
- 
+ Figure \ref{all3} shows the probability density function with magnitude cut at V=9 (red line), probability density function without 
+ magnitude cut (black line) and observational data with error bars (blue line).\\
+ The probability density function without a magnitude cut shows, that the stars are uniformly distributed in $\tau$. This way I can confirm, 
+ that any shape the curve does have is because of the magnitude cut I implement. \\
+ Comparing the red and blue line, 
  
  \section{ending}
  

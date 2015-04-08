@@ -93,12 +93,6 @@ def Reddening(distance):
     return red
 
 def Magnitude(logL,logR,distance):
-    #I know: MV=V-5*log10(distance)+5-Reddening
-    #Mbol=MV+BC
-    #L/L_\odot=0.4*(4.72-Mbol)
-    #Therefore: V=5*log10(distance)-5+Reddening+4.72-\frac[L}{0.4}-BC
-    #if distance==0:####################################################
-    #    return 10######################################################
     red=Reddening(distance)
     T=Temperature(logL,logR)
     bc=BC(T)
@@ -133,9 +127,9 @@ np.savetxt('magdiff1.txt',magdiff1,fmt='%5.3f')
 for i in range(len(Rdata)):
     Distdata[i]=math.log10(Distdata[i])
     
-plt.plot(Agedata, magdiff1, 'r^')
+plt.plot(logLdata, magdiff1, 'r^')
 #plt.plot(Distdata, magdiff2, 'r^')
-plt.ylim(ymin=-2.999)
-plt.xlabel('$Age/\mathrm{Myr}$')
+#plt.xlim(xmin=-1.4999)
+plt.xlabel('log(L/L$_\odot$)')
 plt.ylabel('$V_{comp}-V_{obs}$')
 plt.show()
