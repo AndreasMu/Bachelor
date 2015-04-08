@@ -126,10 +126,12 @@ np.savetxt('magdiff1.txt',magdiff1,fmt='%5.3f')
 
 for i in range(len(Rdata)):
     Distdata[i]=math.log10(Distdata[i])
-    
+
+  
 plt.plot(logLdata, magdiff1, 'r^')
 #plt.plot(Distdata, magdiff2, 'r^')
 #plt.xlim(xmin=-1.4999)
 plt.xlabel('log(L/L$_\odot$)')
 plt.ylabel('$V_{comp}-V_{obs}$')
 plt.show()
+

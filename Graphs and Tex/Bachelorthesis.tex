@@ -47,7 +47,11 @@
  Equation 12 and 13 from the same paper are very powerful equations to compute luminosity and radius for a star on the main sequence.\\
  This Paper does reference \citet*{1996MNRAS.281..257T} for Zero Age Mainsequence (ZAMS) Radii and Luminosities. However there is one 
  error in this Paper I had to correct. In Equation 1 $\gamma + M^3$ has to be $\gamma \cdot M^3$.\\
- \textbf{insert HRD illustrating lumiradius}\\
+ \begin{figure}[h!]
+  \includegraphics[width=\textwidth]{lumiradius}
+  \caption{HRD based on lumiradius\label{lumiradius}}
+ \end{figure}
+\\
  
  The program does allow for freely changeable metalicities. For my purposes I use Z=0.02 for all stars to simulate
  a metalicity similar to that of our galactic neighborhood.\\
@@ -112,8 +116,8 @@
  
  The binning can be freely adjusted. To optimize runtime of my program I conducted a few tests to adjust the binnings in all three dimensions.\\
  
- 
- \section{testing stuffs}
+ \newpage
+ \section{Tests}
  
  
   \begin{figure}[h!]
@@ -123,35 +127,33 @@
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{diffmagAge}
   \end{minipage}
- \caption{Difference between computed and observed magnitudes as a function of fractional main sequence age (left) and total age
- (right). The theoretical magnitudes were computed using stellar radius, luminosity and distance.\label{fracageage}}
- \end{figure}
- 
- Figure \ref{fracageage} shows the difference between computed and observed magnitudes as a function of fractional main sequence age (left) and total age
- (right). It shows, that for some stars there is an offset to higher $V_{comp}$ at high $\tau$ and low absolute ages. This implies, that
- this disagreement shows up in high-mass stars near TAMS. This can be explained using \citep[figure 1]{2014A&A...570L..13C}. My code uses
- an evolutionary model similar to the one used at the lefthand side. $V_{obs}$ however is obtained using a model similar to the righthand
- side. I do expect differences at TAMS.\\
- The deviation to negative values is most prevalent in lower absolute ages. This coincides with my hypothesis, that this is caused by 
- extinction. Stars of lower ages are primarily found in regions of active star formation. This would mean, that they are found in regions
- of high gas density. This gas will cause extinction and thus increase $V_{obs}$. 
- 
- \begin{figure}[h!]
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{diffmagmass}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
-   \includegraphics[width=\textwidth]{diffmaglogdist}
+   \includegraphics[width=\textwidth]{diffmaglogL}
   \end{minipage}
- \caption{Difference between computed and observed magnitudes as a function of Mass (left) and $log_{10}(r/\mathrm{kpc})$ (right).
- The theoretical magnitudes were computed using stellar radius, luminosity and distance. \label{massdist}}
+ \caption{Difference between computed and observed magnitudes as a function of fractional main sequence age (top left), total age
+ (top right), Mass (bottom left) and $log_{10}(r/\mathrm{kpc})$ (bottom right). 
+ The theoretical magnitudes ($V_{comp}$) were computed using stellar radius, luminosity and distance.\label{diffmag}}
  \end{figure}
  
- Figure \ref{massdist} shows the difference between computed and observed magnitudes as a function of Mass(left) and 
- $log_{10}(r/\mathrm{kpc})$ (right). The lefhandside supports my initial hypothesis, that the discrepancies are mostly at higher masses. 
- It is especially interesting, that the large discrepancies only start at 25 $M_\odot$. \textbf{inflation}\\
- It is quite 
+ Figure \ref{diffmag} shows the difference between computed and observed magnitudes as a function of fractional main sequence age (top left),
+ total age (top right), Mass (bottom left) and $log_{10}(r/\mathrm{kpc})$ (bottom right). \\
+ The top graphs show, that there is a high offset to higher $V_{comp}$ at high $\tau$ and low absolute ages. This implies, that this 
+ disagreement shows up in high mass stars near TAMS. This can be explained using \citep[figure 1]{2014A&A...570L..13C}. My code uses
+ an evolutionary model similar to the one used at the lefthand side. $V_{obs}$ however is obtained using a model similar to the righthand
+ side. The right model accounts for convective overshooting to a higher degree and thus the lifetime of a star is expanded. This agrees
+ with the graph at the bottom left. The very high deviations are only seen in stars of Mass between $M=25M_\odot$ and $M\approx43M_\odot$.
+ The convective overshooting, which extends the life of stars in the righthand side can explain for minor deviations. The massive differences
+ between $M=25M_\odot$ and $M\approx 43M_\odot$ can be explained by taking into account inflation however. Near TAMS on the
+ main sequence massive stars will undergo an expansion of their envelopes. The right model takes this into account, whereas the left one 
+ does not. The luminosity limit for stars in the milky way for such an effect to occur is at about $log(L/L_\odot)=5.3$ 
  
+ 
+ The deviation to negative values is most prevalent in lower absolute ages. This supports my hypothesis, that this is caused by 
+ extinction. Stars of lower ages are primarily found in regions of active star formation. This would mean, that they are found in regions
+ of high gas density fluctuation. This gas will cause extinction and thus increase $V_{obs}$.
  
  
  \begin{figure}[h!]
@@ -161,30 +163,25 @@
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{10-100-100}
   \end{minipage}
-   \caption{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
- 100-100-100 (left) and 10-100-100 (right) in distance-mass-age.\label{100-100-100}}
- \end{figure}
-
- \begin{figure}[h!]
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{100-50-100}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{100-100-50}
   \end{minipage}
-   \caption{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of
- 100-50-100 (left) and 100-100-50 (right) in distance-mass-aghe.\label{100-50-100}}
+   \caption{Probability density function for all stars in my sample with a magnitude cut at V=9 with binnings of 100-100-100 (top left) 
+   10-100-100 (top right) 100-50-100 (bottom left) and 100-100-50 (bottom right) in distance-mass-aghe.\label{binnings}}   
  \end{figure}
  
-  Figures \ref{100-100-100} and \ref{100-50-100} show the probability density function for all stars in the sample
-  with a magnitude cut at V=9 with different distance-mass-age binnings. The left graph of \ref{100-100-100} shows the reference graph
-  with a binning of 100 for all variables. The right one then has the binning in distance reduced by a factor of ten. Both graphs
-  are very similar. This means, that distance will be very robust to low binnings. Figure \ref{100-50-100} 
-  now shows the same graph with the binning in mass (left) and age (right) halved. Here the discrepancies are very obvious. 
+  Figure \ref{binnings} shows the probability density function for all stars in the sample
+  with a magnitude cut at V=9 with different distance-mass-age binnings. The top left graph shows the reference graph
+  with a binning of 100 for all variables. The top right one has the binning in distance reduced by a factor of ten. Both graphs
+  are very similar. This means, that distance will be very robust to low binnings. \\
+  The bottom now shows the same graph with the binning in mass (left) and age (right) halved. Here the discrepancies are very obvious. 
   Because of this I use a binning of 100-1000-1000 for my final data.
  
  \newpage
- \section{results}
+ \section{Results}
  \begin{figure}[h!]
    \includegraphics[width=\textwidth]{plot1}
    \caption{Probability density function with magnitude cut at V=9 (red line), probability density function without magnitude cut
@@ -200,16 +197,20 @@
  considering the program is only a minimalistic model. There are a lot of things, that can still be implemented:\\
  \begin{itemize}
   \item Right now the stars are distributed homogenously in a sphere of a 3kpc radius. To make it more accurate one could model our
-  galactic neighborhood. Namely take into account the thickness of the galactic disk, which is lower, than 3kpc.
+  galactic neighborhood. Namely take into account the thickness of the galactic disk, which is smaller, than 3kpc.
   \item The program does not take into account binary stars. 
-  \item From observations we know, that we live in a part of the galaxy with almost solely old and thus non-massive stars. The 
-  density of young and massive stars increases the farther you move away from the solar system. 
-  \item My model for reddening is very simplistic. Not only that, The program does not take into account areas of high density in 
-  the interstellar medium. The effects of which can be seen in figures \ref{fracageage} and \ref{massdist}.
+  \item From observations we know, that we live in a part of the galaxy with little star formation.  
+  The density of young open starclusters increases the farther you move away from the solar system. As seen in Figure \ref{clusters}.
+  \item My model for reddening is very approximated. It does not take into account density fluctuations in the interstellar medium. 
+  The effects of which can be seen in figure \ref{diffmag}.
  \end{itemize}
+ \begin{figure}
+  \includegraphics[width=\textwidth]{clusters}
+  \caption{Shows star clusters\label{clusters}}
+ \end{figure}
 
  
- \section{ending}
+ \section{Conclusions}
  
  \bibliography{adssample}
 \end{document}

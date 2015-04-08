@@ -378,14 +378,18 @@ while(Mi<45):
     mass+=1
     Mi+=1
 
-arrayt=np.arange(11*45,dtype=np.float)
-arrayt=arrayt.reshape((11,45))
-for i in range(11):
-    arrayt[i,:]=i/10.
-for i in range(45):
-    plt.plot(arrayt[:,i],arrayL[:,i])
-#plt.plot(arrayT[:,0], arrayL[:,0], arrayT[:,1], arrayL[:,1],arrayT[:,2], arrayL[:,2],arrayT[:,3],arrayL[:,3],arrayT[:,4],arrayL[:,4])
-plt.xlabel('t/tms')
-plt.ylabel('log(L)')
+#arrayt=np.arange(11*45,dtype=np.float)
+#arrayt=arrayt.reshape((11,45))
+#for i in range(11):
+#    arrayt[i,:]=i/10.
+for i in range(5):
+    r=i*10
+    plt.plot(arrayT[:,r],arrayL[:,r], label='M=%i $\mathrm{M}_\odot$'%(r+5))
+#plt.plot(arrayT[:,0], arrayL[:,0], arrayT[:,14], arrayL[:,14],arrayT[:,24], arrayL[:,24],arrayT[:,34],arrayL[:,34],arrayT[:,44],arrayL[:,44])
+legend=plt.legend(loc='upper right', shadow=True)
+plt.gca().invert_xaxis()
+plt.ylim(ymin=2.50001)
+plt.xlabel('$\log(T/\mathrm{K})$')
+plt.ylabel('$log(L/L_\odot)$')
 plt.show()
 '''
