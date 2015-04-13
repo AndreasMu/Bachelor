@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.7.14)  8 APR 2015 20:16
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.7.14)  11 APR 2015 17:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -376,34 +376,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--23
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 24--26
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 27--28
-
- []
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 31.
+LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 31.
+LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-<lumiradius.png, id=32, 586.8324pt x 442.2924pt>
-File: lumiradius.png Graphic file (type png)
- <use lumiradius.png>
-Package pdftex.def Info: lumiradius.png used on input line 51.
-(pdftex.def)             Requested size: 345.0pt x 260.03241pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 29--55
+Underfull \hbox (badness 10000) in paragraph at lines 25--46
 
  []
+
+<lumiradius.png, id=34, 586.8324pt x 442.2924pt>
+File: lumiradius.png Graphic file (type png)
+ <use lumiradius.png>
+Package pdftex.def Info: lumiradius.png used on input line 48.
+(pdftex.def)             Requested size: 345.0pt x 260.03241pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -411,104 +401,100 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2 <./lumiradius.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 117--118
-
- []
-
-[3] <diffmagfracms.png, id=81, 586.8324pt x 442.2924pt>
+[3] <diffmagfracms.png, id=86, 586.8324pt x 442.2924pt>
 File: diffmagfracms.png Graphic file (type png)
 
 <use diffmagfracms.png>
-Package pdftex.def Info: diffmagfracms.png used on input line 125.
+Package pdftex.def Info: diffmagfracms.png used on input line 134.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
- <diffmagAge.png, id=82, 586.8324pt x 442.2924pt>
+ <diffmagAge.png, id=87, 586.8324pt x 442.2924pt>
 File: diffmagAge.png Graphic file (type png)
 
 <use diffmagAge.png>
-Package pdftex.def Info: diffmagAge.png used on input line 128.
+Package pdftex.def Info: diffmagAge.png used on input line 137.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
- <diffmagmass.png, id=83, 586.8324pt x 442.2924pt>
+ <diffmagmass.png, id=88, 586.8324pt x 442.2924pt>
 File: diffmagmass.png Graphic file (type png)
 
 <use diffmagmass.png>
-Package pdftex.def Info: diffmagmass.png used on input line 131.
+Package pdftex.def Info: diffmagmass.png used on input line 140.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
- <diffmaglogL.png, id=84, 586.8324pt x 442.2924pt>
+ <diffmaglogL.png, id=89, 586.8324pt x 442.2924pt>
 File: diffmaglogL.png Graphic file (type png)
 
 <use diffmaglogL.png>
-Package pdftex.def Info: diffmaglogL.png used on input line 134.
+Package pdftex.def Info: diffmaglogL.png used on input line 143.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
  [4 <./diffmagfracms.png> <./diffmagAge.png> <./diffmagmass.png> <./diffmaglogL
-.png>] <100-100-100.png, id=98, 586.8324pt x 442.2924pt>
+.png>] <100-100-100.png, id=103, 586.8324pt x 442.2924pt>
 File: 100-100-100.png Graphic file (type png)
 
 <use 100-100-100.png>
-Package pdftex.def Info: 100-100-100.png used on input line 161.
+Package pdftex.def Info: 100-100-100.png used on input line 174.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
- <10-100-100.png, id=99, 586.8324pt x 442.2924pt>
+ <10-100-100.png, id=104, 586.8324pt x 442.2924pt>
 File: 10-100-100.png Graphic file (type png)
 
 <use 10-100-100.png>
-Package pdftex.def Info: 10-100-100.png used on input line 164.
+Package pdftex.def Info: 10-100-100.png used on input line 177.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
- <100-50-100.png, id=100, 586.8324pt x 442.2924pt>
+ <100-50-100.png, id=105, 586.8324pt x 442.2924pt>
 File: 100-50-100.png Graphic file (type png)
 
 <use 100-50-100.png>
-Package pdftex.def Info: 100-50-100.png used on input line 167.
+Package pdftex.def Info: 100-50-100.png used on input line 180.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
- <100-100-50.png, id=101, 586.8324pt x 442.2924pt>
+ <100-100-50.png, id=106, 586.8324pt x 442.2924pt>
 File: 100-100-50.png Graphic file (type png)
 
 <use 100-100-50.png>
-Package pdftex.def Info: 100-100-50.png used on input line 170.
+Package pdftex.def Info: 100-100-50.png used on input line 183.
 (pdftex.def)             Requested size: 169.0519pt x 127.41115pt.
  [5 <./100-100-100.png> <./10-100-100.png> <./100-50-100.png> <./100-100-50.png
->] <plot1.png, id=112, 586.8324pt x 442.2924pt>
+>] <plot1.png, id=117, 586.8324pt x 442.2924pt>
 File: plot1.png Graphic file (type png)
 
 <use plot1.png>
-Package pdftex.def Info: plot1.png used on input line 186.
+Package pdftex.def Info: plot1.png used on input line 199.
 (pdftex.def)             Requested size: 345.0pt x 260.03241pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 192--198
+Underfull \hbox (badness 10000) in paragraph at lines 205--210
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 199.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 211.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 199.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 211.
  [6 <./plot1.png>]
-<clusters.png, id=122, 586.8324pt x 442.2924pt>
+<clusters.png, id=129, 586.8324pt x 442.2924pt>
 File: clusters.png Graphic file (type png)
  <use clusters.png>
-Package pdftex.def Info: clusters.png used on input line 208.
+Package pdftex.def Info: clusters.png used on input line 220.
 (pdftex.def)             Requested size: 345.0pt x 260.03241pt.
 
 (./Bachelorthesis.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 216.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
  [7 <./clusters.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 216.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
  (./Bachelorthesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 216.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 216.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 230.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
 Package rerunfilecheck Info: File `Bachelorthesis.out' has not changed.
 (rerunfilecheck)             Checksum: 8D62FFC5B87D220000753104CABC8DCA;216.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 216.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
  ) 
 Here is how much of TeX's memory you used:
  6913 strings out of 493628
  97914 string characters out of 3148973
- 193249 words of memory out of 3000000
+ 193521 words of memory out of 3000000
  10059 multiletter control sequences out of 15000+200000
  6252 words of font info for 25 fonts, out of 3000000 for 9000
  935 hyphenation exceptions out of 8191
- 29i,7n,28p,454b,389s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,7n,28p,577b,389s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -519,10 +505,10 @@ t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
 public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmsy7.pfb>
-Output written on Bachelorthesis.pdf (7 pages, 372353 bytes).
+Output written on Bachelorthesis.pdf (7 pages, 367823 bytes).
 PDF statistics:
- 174 PDF objects out of 1000 (max. 8388607)
- 131 compressed objects within 2 object streams
+ 180 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
  34 named destinations out of 1000 (max. 500000)
  96 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -124,8 +124,8 @@ averagediff2=averagediff2/len(Rdata)
 np.savetxt('magdiff2.txt',magdiff2,fmt='%5.3f')
 np.savetxt('magdiff1.txt',magdiff1,fmt='%5.3f')
 
-for i in range(len(Rdata)):
-    Distdata[i]=math.log10(Distdata[i])
+#for i in range(len(Rdata)):
+ #   Distdata[i]=math.log10(Distdata[i])
 
   
 plt.plot(logLdata, magdiff1, 'r^')
