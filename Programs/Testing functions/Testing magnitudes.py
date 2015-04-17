@@ -69,7 +69,9 @@ def Temperature(logL,logR):
     #Therefore: T=sqrt(sqrt(L/(sigma*4*pi*R**2)))
     temperature=math.sqrt(math.sqrt((10**logL*3.846e26)/(sigma*4*math.pi*(10**logR*696342000)**2)))
     return temperature
-    
+
+
+
 def BC(T):
     if math.log10(T)>4:
         bc=4.1940953-0.00070441042*T+3.4516521e-8*T**2-9.5565244e-13*T**3+1.2790825e-17*T**4-6.4741275e-23*T**5
@@ -98,6 +100,12 @@ def Magnitude(logL,logR,distance):
     bc=BC(T)
     V=5*math.log10(1000*distance)-5+red+4.72-logL/0.4-bc
     return V
+
+BCdiff = np.arange(len(Rdata),dtype=np.float)
+for i in range(len(logRdata)):
+    T=Temperature(logLdata[i],logRdata[i])
+    BCdiff[i]=BCdata[i]-BC(T)
+    
 
 magdiff1=np.arange(len(Rdata),dtype=np.float)
 magcomp1=np.arange(len(Rdata),dtype=np.float)
@@ -128,10 +136,10 @@ np.savetxt('magdiff1.txt',magdiff1,fmt='%5.3f')
  #   Distdata[i]=math.log10(Distdata[i])
 
   
-plt.plot(logLdata, magdiff1, 'r^')
+plt.plot(logLdata, BCdiff, 'r^')
 #plt.plot(Distdata, magdiff2, 'r^')
 #plt.xlim(xmin=-1.4999)
-plt.xlabel('log(L/L$_\odot$)')
-plt.ylabel('$V_{comp}-V_{obs}$')
+plt.xlabel('log($L$/L$_\odot$)')
+plt.ylabel('BCdata-BCcomp')
 plt.show()
 

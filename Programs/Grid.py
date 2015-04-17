@@ -7,16 +7,16 @@ import matplotlib.pyplot as plt
 Z = 0.02
 #The metalicity should be 0.02
 
-rangedistance = 10 #The amount of intervals I have for distance
+rangedistance = 100 #The amount of intervals I have for distance
 maxdistance = 3.#The maximum distance in kpc
 dr = float(maxdistance)/rangedistance #size of distance bins
 
-rangemass = 10 #Amount of intervals I have for mass
+rangemass = 1500 #Amount of intervals I have for mass
 maxmass = 50. #Maximum and minimum mass
 minmass = 5.
 dlogM = (math.log10(maxmass)-math.log10(minmass))/rangemass #Size of logarithmic mass bins
 
-rangeage = 10
+rangeage = 750
 
 #Amount of intervals I have for age
 
@@ -168,21 +168,18 @@ for bins in range(0,20):
 for bins in range(0,20):
     graph[bins]=graph[bins]/norm
     nocut[bins]=nocut[bins]/normnocut
-'''
+
 #Now I write the data I get into a file for further handling.
 Dataforfile=np.column_stack((agelabel,graph))
 np.savetxt('compdata.txt',Dataforfile,fmt='%5.3f')
 
 Dataforfilenocut=np.column_stack((agelabel,nocut))
 np.savetxt('compdatanocut.txt',Dataforfilenocut,fmt='%5.3f')
-'''
-font = {'family' : 'normal',
-        'weight' : 'bold',
-        'size'   : 22}
 
-plt.rc('font', **font)
+'''
 plt.plot(agelabel, graph)
 #plt.errorbar(agelabel, data, yerr=error,fmt='')
 plt.xlabel('t/tms')
 plt.ylabel('probability density')
 plt.show()
+'''
