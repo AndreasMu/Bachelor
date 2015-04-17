@@ -68,7 +68,7 @@
   \frac{dp}{d\log t}=\frac{t\ln 10}{t_{\mathrm{ms}}}.
  \end{equation}
 
- With this information I can formulate the overall probability density function for the stars in my sample with regard to $\tau$
+ With this information I can formulate the overall probability density function (PDF) for the stars in my sample with regard to $\tau$
  
  \begin{equation}
   \frac{dp}{d\tau}=\frac{dp}{dV}dV \cdot \frac{dp}{d\log t}d\log t \cdot \frac{dp}{d\log M}d\log M\cdot \frac{1}{d\tau}.
@@ -187,46 +187,53 @@
   \begin{minipage}{0.49\textwidth}
    \includegraphics[width=\textwidth]{100-100-50}
   \end{minipage}
-   \caption{Probability density function for all stars in my sample with a magnitude cut at V=9 with different binnings.
+   \caption{PDF for all stars in my sample with a magnitude cut at V=9 with different binnings.
    The legend shows the binning of each line. The first value being distance, the second being mass and the third being age.\label{binnings}}
  \end{figure}
  
- Figure \ref{binnings} shows the probability density function for all stars in my sample with a magnitude cut at V=9 in four graphs. 
- Graph 1 shows both the function with a resolution of 100-100-100 and the final results without noise for reference. One can see from this
- graph that with this resolution there is noise that needs to be eliminated. I don't know what variables play the biggest part in creating
- this noise. To understand this, in Graphs 2, 3 and 4 I change the resolution of a select variable and compare them to 
- the curve of 100-100-100 resolution.\\
+ Figure \ref{binnings} shows the PDF for all stars in my sample with a magnitude cut at V=9 in four graphs. 
+ Graph 1 shows both the function with a resolution of 100-100-100 in distance-mass-age and the final results without noise for reference. 
+ One can see from this
+ graph that with this resolution there is noise that needs to be eliminated. 
+ To understand what variables play the biggest part in creating this noise, in Graphs 2, 3 and 4 I change the resolution of a select 
+ variable and compare the resulting curve to the curve of 100-100-100 resolution.\\
  
  In Graph 2 one can see, that even tho I cut the resolution of distance by one order of magnitude, the curves only deviate very little. This
  tells me, that distance will be very robust to a low resolution. Graphs 3 and 4, even tho I only cut the resolution in half, both 
- show a significant increase in noise, Graph 3 showing the greatest increase. Using these results, I determine a binning of 100-1500-750
- to yield an appropriate resolution to maximize accuracy and minimize computing time.
+ show a significant increase in noise, Graph 3 showing the greatest deviation from the reference-curve. Using these results, I determine 
+ a binning of 100-1500-750 to yield an appropriate resolution to maximize accuracy and minimize computing time.
  
  \newpage
  \section{Results}
  \begin{figure}[h!]
    \includegraphics[width=\textwidth]{plot1}
-   \caption{Probability density function of the sample, with magnitude cut at V=9 (red line), probability 
-   density function without magnitude cut
+   \caption{PDF of volume limited sample, with magnitude cut at V=9 (red line), PDF without magnitude cut
    (dashed line) and observational data with error bars (blue line). All computed data is obtained using a binning of 100-1500-750
    in distance-mass-age. The observational data is taken from Fossati et al., 2015 (in prep.).\label{all3}}
  \end{figure}
  
- Figure \ref{all3} shows the probability density function with magnitude cut at V=9, probability density function without 
- magnitude cut and observational data with error bars.\\
- The probability density function without a magnitude cut shows, that the stars are uniformly distributed in $\tau$. This was expected,
- because my simluation assumes a constant star formation rate.\\
- Introducing a magnitude cut at V=9 reproduces a similar trend to the one we see in the observational data. This is caused by the increasing
- magnitude of stars
+ Figure \ref{all3} shows the PDF with magnitude cut at V=9, PDF without magnitude cut and observational data with error bars.
+ The PDF without magnitude cut shows, that the stars are uniformly distributed in $\tau$. This was expected,
+ because the simluation assumes a constant star formation rate.\\
+ 
+ Introducing a magnitude cut produces a similar trend to the one observed in the observational data. Figure \ref{magage} shows
+ V as a function of fractional main sequence age for five different stars at a distance of 1$\,$kpc based on the evolutionary model of 
+ \citet{2000MNRAS.315..543H}. V is a monotonic decreasing function of age.  \\
+ \begin{figure}
+  \includegraphics[width=\textwidth]{magage}
+  \caption{V as a function of fractional main sequence age for five different stars at a distance of 1$\,$kpc based on the evolutionary model 
+  of \citet{2000MNRAS.315..543H} The dashed line shows the magnitude cut I implemented.\label{magage}}
+ \end{figure}
+
  There are a lot of things, that can still be implemented:\\
  \begin{itemize}
   \item Right now the stars are distributed homogenously in a sphere of a 3kpc radius. To make it more accurate one could model our
   galactic neighborhood. Namely take into account the thickness of the galactic disk, which is smaller, than 3kpc.
   \item The program does not take into account binary stars. This possibly has a major effect, because most massive stars are in binary
-  systems \textbf{cite Sana et al. 2012}
+  systems \citep{2012Sci...337..444S}
   \item From observations we know, that we live in a part of the galaxy with little star formation.  
   The density of young open starclusters increases the farther you move away from the solar system. As seen in Figure \ref{clusters}.
-  \item My model for reddening is only approximated. It does not take into account density fluctuations in the interstellar medium. 
+  \item My model for reddening is only an approximation. It does not take into account density fluctuations in the interstellar medium. 
   The effects of which can be seen in figures \textbf{reference to diffmag}.
  \end{itemize}
  \begin{figure}[h!]

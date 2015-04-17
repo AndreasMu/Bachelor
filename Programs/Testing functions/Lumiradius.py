@@ -346,12 +346,42 @@ def Lumiradius(M,Z,Age):
     #End of calculations!
     return (logL, logR)
 '''
+distance=1
+
 def Temperature(logL,logR):
     #I know: L=sigma*A*T**4 and A=4*pi*R**2
     #Therefore: T=sqrt(sqrt(L/(sigma*4*pi*R**2)))
     temperature=math.sqrt(math.sqrt((10**logL*3.846e26)/(sigma*4*math.pi*(10**logR*696342000)**2)))
-    return math.log10(temperature)
+    return temperature
 
+def BC(T):
+    if math.log10(T)>4:
+        bc=4.1940953-0.00070441042*T+3.4516521e-8*T**2-9.5565244e-13*T**3+1.2790825e-17*T**4-6.4741275e-23*T**5
+    elif math.log10(T)>3.7:
+        bc=-29.325541+0.018052720*T-4.4823439e-6*T**2+5.5894085e-10*T**3-3.4753865e-14*T**4+8.5372998e-19*T**5
+    else:
+        bc=-210.13793+0.19596489*T-7.4465325e-5*T**2+1.4337726e-8*T**3-1.3955426e-12*T**4+5.4925758e-17*T**5
+    return bc
+
+def Reddening(distance):
+    #Reddening is obtained from fig.9 from Amores_Lepine_2005 interpolating between known values
+    d1=0.9
+    d2=2.25
+    d5=5.3
+    if distance<1:
+        red=0.9*distance
+    elif distance<2:
+        red=0.9+1.35*(distance-1)
+    else:
+        red=2.25+1.023*(distance-2)
+    return red
+
+def Magnitude(logL,logR):
+    red=Reddening(distance)
+    T=Temperature(logL,logR)
+    bc=BC(T)
+    V=5*math.log10(1000*distance)-5+red+4.72-logL/0.4-bc
+    return V
 
 #Testing whether this function actually works
 arrayR=np.arange(11*45,dtype=np.float)
@@ -360,6 +390,8 @@ arrayT=np.arange(11*45,dtype=np.float)
 arrayR=arrayR.reshape((11,45))
 arrayL=arrayL.reshape((11,45))
 arrayT=arrayT.reshape((11,45))
+arrayV=np.arange(11*45,dtype=np.float)
+arrayV=arrayV.reshape((11,45))
 
 Age=0
 Z=0.02
@@ -372,24 +404,32 @@ while(Mi<45):
     Age=0
     while(Iteration<11):
         arrayL[Iteration,Mi],arrayR[Iteration,Mi]=Lumiradius(M,Z,Age)
+        arrayV[Iteration,Mi]=Magnitude(arrayL[Iteration,Mi],arrayR[Iteration,Mi])
         arrayT[Iteration,Mi]=Temperature(arrayL[Iteration,Mi],arrayR[Iteration,Mi])
         Age+=0.1
         Iteration+=1
     mass+=1
     Mi+=1
 
-#arrayt=np.arange(11*45,dtype=np.float)
-#arrayt=arrayt.reshape((11,45))
-#for i in range(11):
-#    arrayt[i,:]=i/10.
+arrayt=np.arange(11*45,dtype=np.float)
+arrayt=arrayt.reshape((11,45))
+for i in range(11):
+    arrayt[i,:]=i/10.
 for i in range(5):
     r=i*10
-    plt.plot(arrayT[:,r],arrayL[:,r], label='M=%i $\mathrm{M}_\odot$'%(r+5))
+    plt.plot(arrayt[:,r],arrayV[:,r], label='M=%i $\mathrm{M}_\odot$'%(r+5))
+
+ar=np.arange(0,1.1,0.1)
+al=np.arange(0,1.1,0.1)
+al[:]=9
+
+plt.plot(ar,al,'k--',linewidth=2,label='magnitude cut')
 #plt.plot(arrayT[:,0], arrayL[:,0], arrayT[:,14], arrayL[:,14],arrayT[:,24], arrayL[:,24],arrayT[:,34],arrayL[:,34],arrayT[:,44],arrayL[:,44])
-legend=plt.legend(loc='upper right', shadow=True)
-plt.gca().invert_xaxis()
-plt.ylim(ymin=2.50001)
-plt.xlabel('$\log(T/\mathrm{K})$')
-plt.ylabel('$log(L/L_\odot)$')
+legend=plt.legend(loc='upper left',ncol=3, shadow=True)
+#plt.gca().invert_xaxis()
+plt.ylim(ymax=12.5)
+plt.xlabel('$t/\mathrm{t}_{\mathrm{ms}}$')
+plt.ylabel('V')
 plt.show()
+
 '''

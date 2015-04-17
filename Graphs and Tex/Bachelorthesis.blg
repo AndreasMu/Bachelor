@@ -4,44 +4,44 @@ The top-level auxiliary file: Bachelorthesis.aux
 The style file: apj.bst.bst
 Database file #1: adssample.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 9 entries,
+You've used 10 entries,
             3085 wiz_defined-function locations,
-            710 strings with 6376 characters,
-and the built_in function-call counts, 4164 in all, are:
-= -- 350
-> -- 281
+            719 strings with 6711 characters,
+and the built_in function-call counts, 4688 in all, are:
+= -- 388
+> -- 328
 < -- 4
-+ -- 93
-- -- 100
-* -- 345
-:= -- 793
-add.period$ -- 9
-call.type$ -- 9
-change.case$ -- 57
-chr.to.int$ -- 9
-cite$ -- 9
-duplicate$ -- 167
-empty$ -- 255
-format.name$ -- 113
-if$ -- 828
++ -- 108
+- -- 117
+* -- 396
+:= -- 896
+add.period$ -- 10
+call.type$ -- 10
+change.case$ -- 62
+chr.to.int$ -- 10
+cite$ -- 10
+duplicate$ -- 186
+empty$ -- 283
+format.name$ -- 131
+if$ -- 930
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 9
-newline$ -- 31
-num.names$ -- 36
-pop$ -- 57
+missing$ -- 10
+newline$ -- 34
+num.names$ -- 40
+pop$ -- 63
 preamble$ -- 1
-purify$ -- 57
+purify$ -- 62
 quote$ -- 0
-skip$ -- 147
+skip$ -- 162
 stack$ -- 0
-substring$ -- 195
+substring$ -- 216
 swap$ -- 0
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 81
+type$ -- 90
 warning$ -- 0
-while$ -- 34
+while$ -- 37
 width$ -- 0
-write$ -- 93
+write$ -- 103

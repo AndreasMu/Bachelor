@@ -95,6 +95,7 @@ def Reddening(distance):
     return red
 
 def Magnitude(logL,logR,distance):
+    print '%g\n'%distance
     red=Reddening(distance)
     T=Temperature(logL,logR)
     bc=BC(T)
