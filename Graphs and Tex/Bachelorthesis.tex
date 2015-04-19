@@ -18,7 +18,15 @@
 
 \begin{document}
  \section{Introduction}
- --Initial Problem (graph of obs data)\\
+ \begin{figure}[h!]
+  \includegraphics[width=\textwidth]{obsdata}
+  \caption{Probability density of galactic stars with masses in the range of $M_{\mathrm{min}}=5\,$M$_{\odot}$ and 
+  $M_{\mathrm{max}}=50\,$M$_\odot$ as a function of fractional main sequence age with error bars. Data taken from Fossati et al. (2015) 
+  (in prep.)\label{obsdata}}
+ \end{figure}
+
+ In a recent study of galactic O and B stars, Fossati et al. found a correlation of fractional main sequence age ($\tau$) and
+ the probability density of stars as seen in Figure \ref{obsdata}.  \\
  --First thoughts (Hypothesis)\\
  \subsection{magnitude cut}
  Explanation for magnitude cut \label{magnitudecut}
@@ -82,7 +90,7 @@
  $t_{\mathrm{ms}}(M)$ and $\tau$ then becomes: $\tau(M)=\frac{t}{t_{\mathrm{ms}}(M)}$. I use Z=0.02 for all stars to simulate a metalicity
  similar to that of our sun according to \citet*{1998SSRv...85..161G}.
  I then use Equation 12 and 13 from the same paper to compute luminosity (L) and radius (R) for stars on the main sequence\footnote{
- \citet{2000MNRAS.315..543H} cites \citet*{1996MNRAS.281..257T} for Zero Age Mainsequence (ZAMS) Radii and Luminosities. 
+ \citet{2000MNRAS.315..543H} cites \citet*{1996MNRAS.281..257T} for Zero Age Mainsequence Radii and Luminosities. 
  In Equation 1 of the cited paper there is a typo, where: $\gamma + M^3$ has to be $\gamma \cdot M^3$.}. \\
  
  Figure \ref{lumiradius} shows a Hertzsprung Russel Diagram (HRD) for five different stars on their main sequence based on the evolutionary
@@ -116,9 +124,9 @@
   \label{LMbol}
  \end{equation}
  
- Where $M_{\mathrm{V}}$ is the absolute visual magnitude, $\log(r)$ is the logarithm to base ten of the distance from earth. A(r) is the reddening,
- $M_{\mathrm{bol}}$ is the absolute bolometric magnitude and $BC$ is the Bolometric Correction after a model by \citep*{1996ApJ...469..355F}.
- Using equations \ref{MV}, \ref{Mbol} and \ref{LMbol} I can compute the apparent visual magnitude $V$:
+ Where $M_{\mathrm{V}}$ is the absolute visual magnitude, $\log(r)$ is the logarithm to base ten of the distance from earth. $A(r)$ is the 
+ reddening, $M_{\mathrm{bol}}$ is the absolute bolometric magnitude and $BC$ is the Bolometric Correction from a model by 
+ \citet*{1996ApJ...469..355F}. Using equations \ref{MV}, \ref{Mbol} and \ref{LMbol} I can compute the apparent visual magnitude $V$:
  
  \begin{equation}
   V=5\cdot\log(r)-5+A(r)+4.72-\frac{\log(L/\mathrm{L}_\odot)}{0.4}-BC.
@@ -133,46 +141,7 @@
  I conducted a few consistency and numerical tests.:
  
  \subsection{consistency checks}
-  \begin{figure}[h!]
-  \includegraphics[width=0.9\textwidth]{diffmaglogL}
-  \caption{Difference between computed and observed magnitudes as a function of $\log(L/L_\odot)$}
- \end{figure}
  
- The theoretical magnitudes ($V_{comp}$) were computed using stellar radius, luminosity and distance. The observational magnitudes ($V_{obs}$)
- were taken from a sample of 150 stars between M=5M$_\odot$ and M=48M$_\odot$ from \citep{2014A&A...570L..13C}
- 
- Figure \ref{diffmagmass} shows the difference between computed and observed magnitudes as a function of mass. There is a significant
- deviation towards higher $V_{comp}$ at high masses. This can be explained using Figure \ref{castroetal}:
- \begin{figure}
-  \includegraphics[width=\textwidth]{Castroetal}
-  \caption{Grey scale representation of the probability density distribution of the location of 575 Galactic stars in the sHRD.
-  Overlayed are stellar evolution tracks for non-rotating stars with solar composition a)\citet{2012A&A...537A.146E}
-  and b)\citet{2011yCat..35309115B}. The ZAMS and TAMS positions of the models are connected through orange and purple dashed lines.
-  Red and blue triangles are placed on the tracks separated by 0.1 Myr \citep{2014A&A...570L..13C}\label{castroetal}}
- \end{figure}
-
- My code uses an evolutionary model similar to model a). $V_{obs}$ however is obtained using a model similar to model b).
- Model b) accounts for convective overshooting to a higher degree and thus the lifetime of stars is expanded. This would account for
- minor deviations. Because of the difference in position of TAMS in the HRD, \textbf{I STILL DON'T GET IT}.
- The massive deviations between $M=25M_\odot$ and $M\approx 43M_\odot$ can be explained by taking into account inflation. 
- Near TAMS on the main sequence massive stars will undergo an expansion of their envelopes. This gives rise to a big shift on the
- HRD.
- 
-
- 
- \begin{figure}[h!]
-  \includegraphics[width=0.9\textwidth]{diffmagfracms}
-  \caption{Difference between computed and observed magnitudes as a function of age}
- \end{figure}
- 
- 
- 
- The deviation to negative values is mostly caused by extinction. It is most prevalent in lower absolute ages. 
- Stars of lower ages are primarily found in regions of active star formation. This would mean, that they are found in regions
- of high gas density. This gas will cause extinction and thus increase $V_{obs}$. My model for extinction does not take into account 
- these density fluctuations.
- 
- \newpage
  \subsection{numerical tests}
  \begin{figure}[h!]
   \begin{minipage}{0.49\textwidth}
@@ -198,8 +167,8 @@
  To understand what variables play the biggest part in creating this noise, in Graphs 2, 3 and 4 I change the resolution of a select 
  variable and compare the resulting curve to the curve of 100-100-100 resolution.\\
  
- In Graph 2 one can see, that even tho I cut the resolution of distance by one order of magnitude, the curves only deviate very little. This
- tells me, that distance will be very robust to a low resolution. Graphs 3 and 4, even tho I only cut the resolution in half, both 
+ In Graph 2 one can see, that even though I cut the resolution of distance by one order of magnitude, the curves only deviate very little. This
+ tells me, that distance will be very robust to a low resolution. Graphs 3 and 4, even though I only cut the resolution in half, both 
  show a significant increase in noise, Graph 3 showing the greatest deviation from the reference-curve. Using these results, I determine 
  a binning of 100-1500-750 to yield an appropriate resolution to maximize accuracy and minimize computing time.
  
@@ -216,9 +185,11 @@
  The PDF without magnitude cut shows, that the stars are uniformly distributed in $\tau$. This was expected,
  because the simluation assumes a constant star formation rate.\\
  
- Introducing a magnitude cut produces a similar trend to the one observed in the observational data. Figure \ref{magage} shows
+ Introducing a magnitude cut produces a similar trend to the one observed in the observational data. Because V is a monotonic decreasing
+ function in age, there will be more old stars below the magnitude cut, than young stars. Figure \ref{magage} shows
  V as a function of fractional main sequence age for five different stars at a distance of 1$\,$kpc based on the evolutionary model of 
- \citet{2000MNRAS.315..543H}. V is a monotonic decreasing function of age.  \textbf{I need to write some more here}\\
+ \citet{2000MNRAS.315..543H}. At Zero Age Main Sequence (ZAMS) stars with $r=1\,$kpc $M>15\mathrm{M}_\odot$ fall below the magnitude cut at 
+ $V=9$. At terminal age main sequence (TAMS) however, every star in a distance of $r=1\,$kpc and $M>5\,$M$_\odot$ falls below this cut.\\
  \begin{figure}
   \includegraphics[width=\textwidth]{magage}
   \caption{V as a function of fractional main sequence age for five different stars at a distance of 1$\,$kpc based on the evolutionary model 
@@ -227,23 +198,34 @@
 
  There are a lot of things, that can still be implemented:\\
  \begin{itemize}
-  \item Right now the stars are distributed homogenously in a sphere of a 3kpc radius. To make it more accurate one could model our
-  galactic neighborhood. Namely take into account the thickness of the galactic disk, which is smaller, than 3kpc.
+  \item The stars are distributed homogenously in a sphere of 3$\,$kpc radius. To make it more accurate one could model take into account the 
+  thickness of the galactic disk, which is smaller, than 3$\,$kpc. 
   \item The program does not take into account binary stars. This possibly has a major effect, because most massive stars are in binary
   systems \citep{2012Sci...337..444S}
   \item From observations we know, that we live in a part of the galaxy with little star formation.  
-  The density of young open starclusters increases the farther you move away from the solar system. As seen in Figure \ref{clusters}.
+  The density of young open starclusters increases the farther you move away from the solar system. Figure \ref{clusters} shows open 
+  starclusters in our galaxy with distance modulus vs log($t$/yr). The black line represents the age of the oldest possible star in 
+  my sample. Starclusters below this limit show a trend, where young clusters are farther away, than old ones.
   \item My model for reddening is only an approximation. It does not take into account density fluctuations in the interstellar medium. 
   The effects of which can be seen in figures \textbf{reference to diffmag}.
  \end{itemize}
  \begin{figure}[h!]
   \includegraphics[width=\textwidth]{clusters}
-  \caption{Open starclusters in our galaxy with distance modulus vs log(Age/yr)  \label{clusters}}
+  \caption{Open starclusters in our galaxy with distance modulus vs log($t$/yr). The black line represents the age of the oldest possible
+  star in my sample. ($t_{\mathrm{ms}}(M_{\mathrm{min}})=104\,$Myr) \textbf{citation} \label{clusters}}
  \end{figure}
 
- 
+ \newpage
  \section{Conclusions}
+ I modeled a stellar population for stars on their main sequence of masses between $M=5\,$M$_\odot$ and $M=50\,$M$_\odot$ and a distance of 
+ $r\le 3\,$kpc. I defined the probability density function (PDF) with regard to the fractional main sequence age $\frac{dp}{d\tau}$ using 
+ the PDFs for space $\frac{dp}{dV}$, mass $\frac{dp}{dM}$ and age $\frac{dp}{dt}$. I implemented
+ analytical formulations derived from a stellar evolution model by \citet{2000MNRAS.315..543H} to find the apparent visual magnitudes.
+ I modeled the magnitude limited PDF and found, that it matches the trend of the observational data very well.\\
+ With this I proved, that you do indeed expect a trend similar to the one found in Figure \ref{obsdata} taking into account modern stellar 
+ evolution models.\\
  
+ In the future this work can be used to simulate a more detailed model and explain the deviations, that occur in this simulation.
  
  
  \bibliography{adssample}
